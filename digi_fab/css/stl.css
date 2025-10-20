@@ -12,7 +12,7 @@
     /* カラー変数の定義 */
     --color-dark: #1a1a1a;        /* メインの背景/テキスト */
     --color-light: #f7f7f7;       /* メインの背景/要素 */
-    --color-primary: #007bff;     /* アクセントカラー（青） */
+    --color-primary: #0091ffcc;     /* アクセントカラー（青） */
     --color-secondary: #e0e0e0;   /* カード背景など */
     --font-family-base: 'Inter', sans-serif;
 }
