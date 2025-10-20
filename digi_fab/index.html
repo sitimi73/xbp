@@ -1,26 +1,57 @@
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>デジタルファブリケーション</title>
-    <link rel="stylesheet" href="./css/stl.css">
-    <link rel="shortcut icon" href="./images/xbp.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stilish Minimal Site</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <logotohome>
-    <a href="../index.html"><img src="./images/0_XBlogo.png" alt=""></a>
-    </logotohome>
-    <h1>デジタルファブリケーション</h1>
-    <h2>演習ノート一覧</h2>
 
-<li><a href="./pinsetto.html">ピンセット</a></li>
+    <header class="header">
+        <div class="logo">Minimal Design</div>
+        <nav class="nav">
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#work">Work</a>
+            <a href="#contact" class="button-contact">Contact</a>
+        </nav>
+    </header>
 
+    <section class="hero">
+        <div class="hero-content">
+            <h1>デザインで、未来を形作る。</h1>
+            <p>現代のユーザー体験に最適化された、洗練されたデジタルソリューションを提供します。</p>
+            <a href="#work" class="button-primary">最新の制作実績を見る</a>
+        </div>
+    </section>
 
+    <section id="services" class="section services">
+        <h2>私たちが提供するもの</h2>
+        <div class="service-cards">
+            <div class="card">
+                <h3>UI/UX Design</h3>
+                <p>ユーザーテストに基づいた、使いやすく美しいインターフェースを設計します。</p>
+            </div>
+            <div class="card">
+                <h3>Web Development</h3>
+                <p>モダンな技術を用いた高速でレスポンシブなウェブサイトを構築します。</p>
+            </div>
+            <div class="card">
+                <h3>Branding</h3>
+                <p>視覚的な一貫性を確立し、ブランドの価値を明確に伝えます。</p>
+            </div>
+        </div>
+    </section>
 
-    
-<br>
-<br>
-
+    <footer class="footer">
+        <p>&copy; 2024 Minimal Design Studio. All rights reserved.</p>
+        <div class="social-links">
+            <a href="#">X</a>
+            <a href="#">Instagram</a>
+        </div>
+    </footer>
 
 </body>
 </html>
