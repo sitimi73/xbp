@@ -1,91 +1,147 @@
 /*
     全体の設定
-    明るい色を基調としたスタイリッシュなデザイン
 */
 body {
-    background-color: #f0f8ff; /* 明るい色: アリスブルー */
+    background-color: #f0f4f8; /* 明るいパステルブルーの背景 */
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    font-family: 'Arial', sans-serif;
-    color: #333; /* テキストは濃いめに */
-    perspective: 1000px; /* 3D回転のために親要素に遠近感（奥行き）を設定 */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    perspective: 1500px; /* 3D空間の奥行き */
     overflow: hidden;
 }
 
 /*
-    モニターコンテナ - 3D回転の中心
+    公転の中心となるコンテナ
 */
-.monitor-container {
-    width: 300px;
+.orbit-center {
+    width: 200px; /* 3D空間の基準サイズ */
     height: 200px;
+    position: relative;
     transform-style: preserve-3d; /* 子要素を3D空間に配置 */
-    animation: spin 10s infinite linear; /* 回転アニメーションの適用 */
-    cursor: pointer; /* マウスオーバーでカーソルをポインターに */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* 影で浮遊感を出す */
-    border-radius: 10px;
-    transition: transform 0.3s ease-in-out; /* クリック時のアニメーション準備 */
+    animation: orbit 20s infinite linear; /* 公転アニメーションの適用 */
 }
 
 /*
-    モニター画面
+    中心の柱（公転の中心）
 */
-.monitor-screen {
-    display: block; /* aタグをブロック要素に */
+.central-pillar {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 100px;
+    transform: translate(-50%, -50%); /* 中央に配置 */
+    background-color: #4a90e2; /* スタイリッシュなブルー */
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(74, 144, 226, 0.5);
+}
+
+/*
+    公転アニメーションの定義
+*/
+@keyframes orbit {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); } /* Y軸（縦軸）を中心に回転 = 公転 */
+}
+
+/*
+    モニター群コンテナ
+*/
+.monitor-group {
     width: 100%;
     height: 100%;
-    background-color: #ffffff; /* モニターの本体色: 白 */
-    border: 5px solid #4a90e2; /* スタイリッシュなライトブルーの枠線 */
-    border-radius: 10px;
+    position: absolute;
+    transform-style: preserve-3d;
+}
+
+/*
+    公転する個々のモニターの設定
+*/
+.monitor {
+    position: absolute;
+    width: 280px; /* モニターの幅を大きく */
+    height: 180px;
+    top: 50%;
+    left: 50%;
+    margin-left: -140px; /* 左半分を相殺して中央配置 */
+    margin-top: -90px;  /* 上半分を相殺して中央配置 */
+    
+    background-color: #ffffff; /* モニター本体は白 */
+    border: 3px solid #6aa7ff; /* 明るいブルーの枠線 */
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    text-decoration: none; /* リンクの下線を消す */
-    color: #4a90e2; /* リンクのテキスト色 */
-    backface-visibility: hidden; /* 要素の裏側を見えなくする（3D回転の際に重要） */
+    text-decoration: none;
+    color: #4a90e2;
+    cursor: pointer;
+    transition: transform 0.5s, box-shadow 0.3s; /* ホバー・タップ時のアニメーション */
+    
+    /* 自転（モニター自身が正面を向き続けるように公転と逆回転） */
+    transform: rotateY(0deg) translateZ(400px) rotateY(0deg); 
+    animation: counter-rotate 20s infinite linear; /* 公転と同期して逆回転させる */
 }
 
-.monitor-content h1 {
-    font-size: 1.8em;
-    margin: 0 0 10px 0;
-    font-weight: 700;
+/*
+    モニターの位置調整（3D空間に配置）
+    rotateY(角度) translateZ(距離) の順に適用することで、中心から放射状に配置
+*/
+.monitor-1 {
+    transform: rotateY(0deg) translateZ(400px); /* 0度の位置、中心から400px離す */
 }
 
+.monitor-2 {
+    transform: rotateY(120deg) translateZ(400px); /* 120度の位置 */
+}
+
+.monitor-3 {
+    transform: rotateY(240deg) translateZ(400px); /* 240度の位置 */
+}
+
+/* モニターのコンテンツ */
+.monitor-content h2 {
+    font-size: 1.6em;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
 .monitor-content p {
-    font-size: 1em;
-    font-style: italic;
-    opacity: 0.8;
+    font-size: 0.9em;
+    opacity: 0.7;
 }
 
 /*
-    回転アニメーションの定義
+    自転（モニターが正面を向き続けるための逆回転アニメーション）
+    公転の逆回転を適用
 */
-@keyframes spin {
-    from {
-        transform: rotateY(0deg); /* Y軸（縦の軸）を中心に回転 */
-    }
-    to {
-        transform: rotateY(360deg);
-    }
+@keyframes counter-rotate {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(-360deg); } /* 公転 (orbit) の逆方向 (マイナス) */
 }
 
 /*
-    インタラクション（マウスオーバー時）
+    公転アニメーションを一時停止させ、モニターの自転も停止させる
 */
-.monitor-container:hover {
-    animation-play-state: paused; /* ホバーで回転を一時停止 */
-    transform: scale(1.05); /* 少し拡大 */
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+.orbit-center:hover, .monitor:hover {
+    animation-play-state: paused;
 }
 
 /*
-    インタラクション（クリック/タップ時） - サイトに飛ぶ前に視覚的な反応
+    個々のモニターのホバー時のインタラクション
 */
-.monitor-container:active {
-    transform: scale(0.95); /* 押し込まれたような表現 */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    /* ここでサイトに飛ぶ（HTMLのaタグで処理される） */
+.monitor:hover {
+    transform: scale(1.1) translateZ(400px); /* 拡大して手前に */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+/*
+    タップ/クリック時のインタラクション
+*/
+.monitor:active {
+    transform: scale(0.95) translateZ(400px);
 }
