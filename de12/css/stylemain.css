@@ -1,0 +1,91 @@
+/*
+    全体の設定
+    明るい色を基調としたスタイリッシュなデザイン
+*/
+body {
+    background-color: #f0f8ff; /* 明るい色: アリスブルー */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    color: #333; /* テキストは濃いめに */
+    perspective: 1000px; /* 3D回転のために親要素に遠近感（奥行き）を設定 */
+    overflow: hidden;
+}
+
+/*
+    モニターコンテナ - 3D回転の中心
+*/
+.monitor-container {
+    width: 300px;
+    height: 200px;
+    transform-style: preserve-3d; /* 子要素を3D空間に配置 */
+    animation: spin 10s infinite linear; /* 回転アニメーションの適用 */
+    cursor: pointer; /* マウスオーバーでカーソルをポインターに */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* 影で浮遊感を出す */
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out; /* クリック時のアニメーション準備 */
+}
+
+/*
+    モニター画面
+*/
+.monitor-screen {
+    display: block; /* aタグをブロック要素に */
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff; /* モニターの本体色: 白 */
+    border: 5px solid #4a90e2; /* スタイリッシュなライトブルーの枠線 */
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-decoration: none; /* リンクの下線を消す */
+    color: #4a90e2; /* リンクのテキスト色 */
+    backface-visibility: hidden; /* 要素の裏側を見えなくする（3D回転の際に重要） */
+}
+
+.monitor-content h1 {
+    font-size: 1.8em;
+    margin: 0 0 10px 0;
+    font-weight: 700;
+}
+
+.monitor-content p {
+    font-size: 1em;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+/*
+    回転アニメーションの定義
+*/
+@keyframes spin {
+    from {
+        transform: rotateY(0deg); /* Y軸（縦の軸）を中心に回転 */
+    }
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
+/*
+    インタラクション（マウスオーバー時）
+*/
+.monitor-container:hover {
+    animation-play-state: paused; /* ホバーで回転を一時停止 */
+    transform: scale(1.05); /* 少し拡大 */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+/*
+    インタラクション（クリック/タップ時） - サイトに飛ぶ前に視覚的な反応
+*/
+.monitor-container:active {
+    transform: scale(0.95); /* 押し込まれたような表現 */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    /* ここでサイトに飛ぶ（HTMLのaタグで処理される） */
+}
