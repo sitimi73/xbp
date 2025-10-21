@@ -11,6 +11,11 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     perspective: 1500px; /* 3D空間の奥行き */
     overflow: hidden;
+    cursor: grab; /* ドラッグできることを示すカーソル */
+}
+
+body.grabbing {
+    cursor: grabbing; /* ドラッグ中はカーソルを変更 */
 }
 
 /*
@@ -21,7 +26,10 @@ body {
     height: 200px;
     position: relative;
     transform-style: preserve-3d; /* 子要素を3D空間に配置 */
-    animation: orbit 20s infinite linear; /* 公転アニメーションの適用 */
+    /* transform は JavaScript で操作します
+        例: transform: rotateY(45deg); 
+    */
+    transition: transform 0.1s linear; /* 滑らかな動作のためにトランジションを設定 */
 }
 
 /*
@@ -32,19 +40,11 @@ body {
     top: 50%;
     left: 50%;
     width: 20px;
-    height: 100px;
+    height: 120px; /* 少し長く */
     transform: translate(-50%, -50%); /* 中央に配置 */
     background-color: #4a90e2; /* スタイリッシュなブルー */
-    border-radius: 50%;
+    border-radius: 5px;
     box-shadow: 0 0 15px rgba(74, 144, 226, 0.5);
-}
-
-/*
-    公転アニメーションの定義
-*/
-@keyframes orbit {
-    from { transform: rotateY(0deg); }
-    to { transform: rotateY(360deg); } /* Y軸（縦軸）を中心に回転 = 公転 */
 }
 
 /*
@@ -62,14 +62,14 @@ body {
 */
 .monitor {
     position: absolute;
-    width: 280px; /* モニターの幅を大きく */
-    height: 180px;
+    width: 250px; /* モニターの幅 */
+    height: 160px;
     top: 50%;
     left: 50%;
-    margin-left: -140px; /* 左半分を相殺して中央配置 */
-    margin-top: -90px;  /* 上半分を相殺して中央配置 */
+    margin-left: -125px; 
+    margin-top: -80px;  
     
-    background-color: #ffffff; /* モニター本体は白 */
+    background-color: #ffffff; 
     border: 3px solid #6aa7ff; /* 明るいブルーの枠線 */
     border-radius: 8px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
@@ -81,32 +81,25 @@ body {
     text-decoration: none;
     color: #4a90e2;
     cursor: pointer;
-    transition: transform 0.5s, box-shadow 0.3s; /* ホバー・タップ時のアニメーション */
-    
-    /* 自転（モニター自身が正面を向き続けるように公転と逆回転） */
-    transform: rotateY(0deg) translateZ(400px) rotateY(0deg); 
-    animation: counter-rotate 20s infinite linear; /* 公転と同期して逆回転させる */
+    transition: box-shadow 0.3s, transform 0.3s; 
+
+    /* モニターは公転しますが、常に正面を向くように逆回転を適用 */
+    /* rotateY(-[角度]) translateZ(距離) の順に適用 */
+    /* rotateY(0deg) の部分を各モニターで設定し、正面向きを維持 */
 }
 
-/*
-    モニターの位置調整（3D空間に配置）
-    rotateY(角度) translateZ(距離) の順に適用することで、中心から放射状に配置
+/* モニターの位置調整（3D空間に配置）
+    公転の半径を 400px に設定し、90度ごとに配置
 */
-.monitor-1 {
-    transform: rotateY(0deg) translateZ(400px); /* 0度の位置、中心から400px離す */
-}
+.monitor-1 { transform: rotateY(0deg) translateZ(400px); }
+.monitor-2 { transform: rotateY(90deg) translateZ(400px); }
+.monitor-3 { transform: rotateY(180deg) translateZ(400px); }
+.monitor-4 { transform: rotateY(270deg) translateZ(400px); }
 
-.monitor-2 {
-    transform: rotateY(120deg) translateZ(400px); /* 120度の位置 */
-}
-
-.monitor-3 {
-    transform: rotateY(240deg) translateZ(400px); /* 240度の位置 */
-}
 
 /* モニターのコンテンツ */
 .monitor-content h2 {
-    font-size: 1.6em;
+    font-size: 1.5em;
     margin-bottom: 5px;
     font-weight: 600;
 }
@@ -116,26 +109,9 @@ body {
 }
 
 /*
-    自転（モニターが正面を向き続けるための逆回転アニメーション）
-    公転の逆回転を適用
-*/
-@keyframes counter-rotate {
-    from { transform: rotateY(0deg); }
-    to { transform: rotateY(-360deg); } /* 公転 (orbit) の逆方向 (マイナス) */
-}
-
-/*
-    公転アニメーションを一時停止させ、モニターの自転も停止させる
-*/
-.orbit-center:hover, .monitor:hover {
-    animation-play-state: paused;
-}
-
-/*
-    個々のモニターのホバー時のインタラクション
+    ホバー時のインタラクション
 */
 .monitor:hover {
-    transform: scale(1.1) translateZ(400px); /* 拡大して手前に */
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
 }
 
@@ -143,5 +119,5 @@ body {
     タップ/クリック時のインタラクション
 */
 .monitor:active {
-    transform: scale(0.95) translateZ(400px);
+    /* 押し込まれたような表現のために、transformを一時的に変更しても良い */
 }
