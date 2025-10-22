@@ -5,36 +5,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let isDragging = false; 
     let startX = 0;         
-    let currentRotationY = 0; 
-    let transformValue = '0deg'; // 初期回転角度を保存
+    let currentRotationY = 0; // 現在の回転角度を保持
     
-    // 現在のCSSのtransform値から角度を抽出し、初期値として設定する関数
-    const getInitialRotation = () => {
-        // CSSのtransformから現在のrotateY(Xdeg)のXdeg部分を抽出
-        const computedStyle = window.getComputedStyle(orbitCenter);
-        const transform = computedStyle.getPropertyValue('transform');
-        
-        // matrix3dからY軸回転角度を概算で取得
-        // matrix3d(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p)
-        // rotateY(θ) は transform: matrix3d(cos(θ), 0, -sin(θ), 0, 0, 1, 0, 0, sin(θ), 0, cos(θ), 0, 0, 0, 0, 1)
-        // ここでは簡単な方法として、現在の角度を推定するシンプルな仕組みを採用
-        // （複雑な計算を避け、ユーザーが手動で回転を始めた時点の角度を基準とする）
-        
-        // 自動アニメーションが開始しているため、ここでは初期値は0として扱い、
-        // ドラッグ開始時に現在の状態を取得するようにします。
-    };
+    const DRAG_DISTANCE_THRESHOLD = 5; // スライド判定のしきい値 (5px以上動いたらスライド)
+    let isSlideDetected = false; // スライド操作が検出されたか
 
-    const startDrag = (clientX) => {
-        isDragging = true;
-        startX = clientX;
-        body.classList.add('grabbing');
-        
-        // 【重要】ドラッグ開始時に自動アニメーションを一時停止
-        orbitCenter.classList.add('paused-animation');
-
-        // 【重要】現在の回転角度をCSSから取得
+    // ----------------------------------------------------
+    // 回転角度の初期値を取得する関数
+    // ----------------------------------------------------
+    const getRotationFromMatrix = () => {
         const style = window.getComputedStyle(orbitCenter).transform;
-        // 例: matrix3d(0.866..., 0, 0.5, 0, ...) -> 角度を解析
         const matrixRegex = /matrix3d\((.+)\)/;
         const match = style.match(matrixRegex);
 
@@ -43,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Y軸回転のcos(θ)とsin(θ)の値から角度を計算 (matrix3dの1要素目と9要素目)
             const cosVal = matrixValues[0];
             const sinVal = matrixValues[8];
+            // Math.atan2(sin, cos) * (180 / Math.PI) でラジアンから度に変換
             currentRotationY = Math.atan2(sinVal, cosVal) * (180 / Math.PI);
         } else {
             // transformプロパティがない（初期状態など）場合は0度
@@ -50,11 +31,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // ----------------------------------------------------
+    // ドラッグ操作開始
+    // ----------------------------------------------------
+    const startDrag = (clientX) => {
+        isDragging = true;
+        isSlideDetected = false; // 操作開始時にスライド判定をリセット
+        startX = clientX;
+        body.classList.add('grabbing');
+        
+        // 自動アニメーションを一時停止
+        orbitCenter.classList.add('paused-animation');
+
+        // 自動回転で止まった時点の角度を取得して、手動操作の基点にする
+        getRotationFromMatrix();
+    };
+
+    // ----------------------------------------------------
+    // ドラッグ操作中
+    // ----------------------------------------------------
     const onDrag = (clientX) => {
         if (!isDragging) return;
 
         const deltaX = clientX - startX;
         
+        // わずかでも動いたらスライド（ドラッグ）と判定
+        if (Math.abs(deltaX) > DRAG_DISTANCE_THRESHOLD) {
+             isSlideDetected = true;
+        }
+
         // 感度を調整
         const rotationDelta = deltaX * 0.3; 
         
@@ -66,43 +71,36 @@ document.addEventListener('DOMContentLoaded', () => {
         startX = clientX;
     };
 
+    // ----------------------------------------------------
+    // ドラッグ操作終了
+    // ----------------------------------------------------
     const endDrag = () => {
+        if (!isDragging) return;
+        
         isDragging = false;
         body.classList.remove('grabbing');
         
-        // 【重要】ドラッグ終了時に自動アニメーションを再開
+        // 自動アニメーションを再開
         orbitCenter.classList.remove('paused-animation');
+        
+        // スライド操作が検出された場合は、次のクリックのためのフラグをリセット
+        // （リンクのpreventDefaultのために必要）
+        setTimeout(() => {
+            isSlideDetected = false;
+        }, 50); 
     };
 
     // ----------------------------------------------------
-    // 【重要】リンクのデフォルト動作のキャンセル処理
-    // スライド操作（ドラッグ）とリンククリックを区別する
+    // リンクのデフォルト動作のキャンセル処理
     // ----------------------------------------------------
-    let isSlideDetected = false;
-    let clickStartTime = 0;
-    const CLICK_DURATION_THRESHOLD = 200; // ms
-    const DRAG_DISTANCE_THRESHOLD = 5; // pixels
-
     monitors.forEach(monitor => {
-        monitor.addEventListener('mousedown', () => {
-            isSlideDetected = false; // クリック時にリセット
-            clickStartTime = Date.now();
-        });
-
-        monitor.addEventListener('mouseup', (e) => {
-            // ドラッグ操作だった場合は、リンク遷移をブロック
-            if (isSlideDetected || (Date.now() - clickStartTime > CLICK_DURATION_THRESHOLD)) {
-                e.preventDefault(); 
-            }
-            // 短いクリックかつドラッグと判定されなければ、リンク遷移が実行される
-        });
-        
-        // タッチ操作の場合のリンクブロック
-        monitor.addEventListener('touchend', (e) => {
-            // スライド操作が検出されたら、リンク遷移をブロック
+        monitor.addEventListener('click', (e) => {
+            // スライド操作（ドラッグ）と判定された場合のみ、リンク遷移をブロック
             if (isSlideDetected) {
-                e.preventDefault();
+                e.preventDefault(); 
+                isSlideDetected = false; // フラグをリセット
             }
+            // 短いタップの場合はリンク遷移が実行される
         });
     });
 
@@ -111,43 +109,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // マウスイベント
     // ----------------------------------------------------
     body.addEventListener('mousedown', (e) => {
-        // モニター上でのクリック開始時もドラッグ操作を開始できるようにする
+        // body全体で開始
         startDrag(e.clientX);
     });
 
     body.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        
-        // わずかでも動いたらスライド（ドラッグ）と判定
-        if (Math.abs(e.clientX - startX) > DRAG_DISTANCE_THRESHOLD) {
-             isSlideDetected = true;
-        }
-
         onDrag(e.clientX);
     });
 
     body.addEventListener('mouseup', endDrag);
-    body.addEventListener('mouseleave', endDrag); // 画面外に出たときも終了
+    body.addEventListener('mouseleave', endDrag); 
 
     // ----------------------------------------------------
     // タッチイベント
     // ----------------------------------------------------
     body.addEventListener('touchstart', (e) => {
-        isSlideDetected = false;
-        clickStartTime = Date.now();
         startDrag(e.touches[0].clientX); 
     });
 
     body.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        
-        // わずかでも動いたらスライド（ドラッグ）と判定
-        if (Math.abs(e.touches[0].clientX - startX) > DRAG_DISTANCE_THRESHOLD) {
-             isSlideDetected = true;
-        }
-
         onDrag(e.touches[0].clientX);
-        e.preventDefault(); // スクロール動作を抑制
+        // モニターを回している間は、画面のスクロールを防ぐ
+        if (isDragging) {
+             e.preventDefault(); 
+        }
     });
 
     body.addEventListener('touchend', endDrag);
