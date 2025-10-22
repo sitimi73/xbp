@@ -1,123 +1,50 @@
-/*
-    全体の設定
-*/
+/* -----------------------------------
+   1. 画面全体と3D空間の基盤設定 (body)
+   ----------------------------------- */
 body {
-    background-color: #f0f4f8; /* 明るいパステルブルーの背景 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    /* ... 他のスタイル ... */
     min-height: 100vh;
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    perspective: 1500px; /* 3D空間の奥行き */
-    overflow: hidden;
-    cursor: grab; /* ドラッグできることを示すカーソル */
+    
+    /* 3D表示に必須：視点（奥行き）の設定 */
+    perspective: 1500px; 
+    overflow: hidden; /* スクロールを禁止し、中央配置を維持 */
 }
 
-body.grabbing {
-    cursor: grabbing; /* ドラッグ中はカーソルを変更 */
-}
-
-/*
-    公転の中心となるコンテナ
-*/
+/* -----------------------------------
+   2. 公転の中心となるコンテナ (orbit-center)
+   ----------------------------------- */
 .orbit-center {
-    width: 200px; /* 3D空間の基準サイズ */
+    width: 200px; 
     height: 200px;
     position: relative;
-    transform-style: preserve-3d; /* 子要素を3D空間に配置 */
-    /* transform は JavaScript で操作します
-        例: transform: rotateY(45deg); 
-    */
-    transition: transform 0.1s linear; /* 滑らかな動作のためにトランジションを設定 */
+    
+    /* 3D表示に必須：子要素（モニター）を3D空間に配置 */
+    transform-style: preserve-3d; 
+    
+    /* 自動回転アニメーション */
+    animation: orbit 40s infinite linear; 
+    /* ... 他のスタイル ... */
 }
 
-/*
-    中心の柱（公転の中心）
-*/
-.central-pillar {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 20px;
-    height: 120px; /* 少し長く */
-    transform: translate(-50%, -50%); /* 中央に配置 */
-    background-color: #4a90e2; /* スタイリッシュなブルー */
-    border-radius: 5px;
-    box-shadow: 0 0 15px rgba(74, 144, 226, 0.5);
-}
-
-/*
-    モニター群コンテナ
-*/
-.monitor-group {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    transform-style: preserve-3d;
-}
-
-/*
-    公転する個々のモニターの設定
-*/
+/* -----------------------------------
+   3. モニターの位置と3D配置
+   ----------------------------------- */
 .monitor {
     position: absolute;
-    width: 250px; /* モニターの幅 */
-    height: 160px;
-    top: 50%;
-    left: 50%;
-    margin-left: -125px; 
-    margin-top: -80px;  
+    /* ... サイズ設定（width, height, margin） ... */
     
-    background-color: #ffffff; 
-    border: 3px solid #6aa7ff; /* 明るいブルーの枠線 */
-    border-radius: 8px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    text-decoration: none;
-    color: #4a90e2;
-    cursor: pointer;
-    transition: box-shadow 0.3s, transform 0.3s; 
-
-    /* モニターは公転しますが、常に正面を向くように逆回転を適用 */
-    /* rotateY(-[角度]) translateZ(距離) の順に適用 */
-    /* rotateY(0deg) の部分を各モニターで設定し、正面向きを維持 */
+    /* モニターの背面を非表示にする（3Dで回る際に重要） */
+    backface-visibility: hidden; 
+    /* ... 他のスタイル ... */
 }
 
-/* モニターの位置調整（3D空間に配置）
-    公転の半径を 400px に設定し、90度ごとに配置
-*/
-.monitor-1 { transform: rotateY(0deg) translateZ(400px); }
-.monitor-2 { transform: rotateY(90deg) translateZ(400px); }
-.monitor-3 { transform: rotateY(180deg) translateZ(400px); }
-.monitor-4 { transform: rotateY(270deg) translateZ(400px); }
-
-
-/* モニターのコンテンツ */
-.monitor-content h2 {
-    font-size: 1.5em;
-    margin-bottom: 5px;
-    font-weight: 600;
+/* モニターを円状に配置 */
+/* rotateYで角度、translateZで中心からの距離を設定 */
+.monitor-1 { 
+    transform: rotateY(0deg) translateZ(400px); 
 }
-.monitor-content p {
-    font-size: 0.9em;
-    opacity: 0.7;
+.monitor-2 { 
+    transform: rotateY(90deg) translateZ(400px); 
 }
-
-/*
-    ホバー時のインタラクション
-*/
-.monitor:hover {
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-}
-
-/*
-    タップ/クリック時のインタラクション
-*/
-.monitor:active {
-    /* 押し込まれたような表現のために、transformを一時的に変更しても良い */
-}
+/* ... monitor-3, monitor-4 も同様 ... */
