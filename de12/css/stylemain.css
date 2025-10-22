@@ -1,26 +1,27 @@
 /*
     全体の設定
+    bodyのスタイルを修正し、要素を縦に並べるように変更します
 */
 body {
     background-color: #f0f4f8; /* 明るいパステルブルーの背景 */
+    
+    /* 修正点: 要素を縦に並べ、水平方向の中央に揃える */
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column; /* 要素を縦（列）に並べる */
+    justify-content: flex-start; /* 上から並べ始める */
+    align-items: center; /* 要素を中央に配置する（横方向） */
+    
     min-height: 100vh;
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     perspective: 1500px; /* 3D空間の奥行き (非常に重要) */
-    overflow: hidden;
-    cursor: grab; /* ドラッグできることを示すカーソル */
-    user-select: none; /* テキスト選択を無効化 */
-}
-
-body.grabbing {
-    cursor: grabbing; /* ドラッグ中はカーソルを変更 */
+    overflow-x: hidden; /* 横スクロールを禁止 */
+    user-select: none; 
 }
 
 /*
     公転の中心となるコンテナ
+    自動回転を復活させ、上下に余白を設定します
 */
 .orbit-center {
     width: 200px; 
@@ -28,9 +29,13 @@ body.grabbing {
     position: relative;
     transform-style: preserve-3d; /* 子要素を3D空間に配置 (非常に重要) */
     
-    /* ゆっくりと自動で回るアニメーション */
+    /* 自動回転を復活 */
     animation: orbit 40s infinite linear; 
-    transition: none; /* JS操作との干渉を避ける */
+    
+    /* 修正点: 上下に余白を追加し、情報セクションとの間隔を空ける */
+    margin: 10vh 0 5vh 0; /* 上に10%の余白、下に5%の余白 */
+    
+    transition: none; /* JSの残骸を無効化 */
 }
 
 /*
@@ -39,13 +44,6 @@ body.grabbing {
 @keyframes orbit {
     from { transform: rotateY(0deg); }
     to { transform: rotateY(360deg); } 
-}
-
-/*
-    【重要】手動操作時にアニメーションを停止させるクラス (JSで追加/削除)
-*/
-.paused-animation {
-    animation-play-state: paused !important;
 }
 
 /*
@@ -98,7 +96,7 @@ body.grabbing {
     color: #4a90e2;
     cursor: pointer;
     transition: box-shadow 0.3s; 
-    backface-visibility: hidden; /* モニターの裏側を非表示に */
+    backface-visibility: hidden; 
 }
 
 /* モニターを円状に配置 */
@@ -124,4 +122,62 @@ body.grabbing {
 */
 .monitor:hover {
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* -----------------------------------
+   新しく追加する情報セクションのスタイル
+   ----------------------------------- */
+.info-section {
+    width: 90%; /* 画面幅の90% */
+    max-width: 900px; /* 最大幅を設定して見やすくする */
+    padding: 40px 20px;
+    margin-bottom: 50px;
+    
+    background-color: #ffffff; 
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); 
+    text-align: center; 
+    
+    color: #333; 
+}
+
+.info-section h1 {
+    color: #4a90e2; 
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+.info-section p {
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.info-section ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px; 
+}
+
+.info-section li {
+    background-color: #f7f9fc;
+    padding: 15px 25px;
+    border-radius: 5px;
+    font-weight: 500;
+    color: #6aa7ff;
+    border: 1px solid #e0e0e0;
+}
+
+/*
+    フッター
+*/
+.site-footer {
+    width: 100%;
+    padding: 20px 0;
+    background-color: #e8ecf1;
+    text-align: center;
+    color: #666;
+    font-size: 0.9em;
 }

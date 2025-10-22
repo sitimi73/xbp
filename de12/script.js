@@ -1,130 +1,91 @@
 document.addEventListener('DOMContentLoaded', () => {
     const orbitCenter = document.getElementById('orbit-center');
-    const body = document.body;
     const monitors = document.querySelectorAll('.monitor');
-
-    let isDragging = false; 
-    let startX = 0;         
-    let currentRotationY = 0; // 現在の回転角度を保持
-    let isSlideDetected = false; // スライド操作が検出されたか
-    const DRAG_DISTANCE_THRESHOLD = 5; // スライド判定のしきい値
-
-    // CSSのtransform (matrix3d) から現在のY軸回転角度を取得する関数
-    const getRotationFromMatrix = () => {
-        const style = window.getComputedStyle(orbitCenter).transform;
-        const matrixRegex = /matrix3d\((.+)\)/;
-        const match = style.match(matrixRegex);
-
-        if (match) {
-            const matrixValues = match[1].split(',').map(v => parseFloat(v.trim()));
-            const cosVal = matrixValues[0]; 
-            const sinVal = matrixValues[8]; 
-            // ラジアンを度に変換して返す
-            return Math.atan2(sinVal, cosVal) * (180 / Math.PI);
-        }
-        return 0;
-    };
-
+    
+    // 自動回転の状態を管理するフラグ
+    let isRotationPaused = false; 
+    
+    // ダブルクリック/ダブルタップの判定に必要な変数
+    let lastTap = 0;
+    const DOUBLE_CLICK_DELAY = 300; // 300ms 以内の2回目のクリック/タップをダブル判定
+    
     // ----------------------------------------------------
-    // ドラッグ操作開始 (イベントハンドラ)
+    // 回転の状態を切り替えるメイン関数
     // ----------------------------------------------------
-    const startDrag = (clientX) => {
-        isDragging = true;
-        isSlideDetected = false; 
-        startX = clientX;
-        body.classList.add('grabbing');
+    const toggleRotation = () => {
+        isRotationPaused = !isRotationPaused;
         
-        // 自動アニメーションを一時停止
-        orbitCenter.classList.add('paused-animation');
-
-        // 自動回転で止まった時点の角度を取得して、手動操作の基点にする
-        currentRotationY = getRotationFromMatrix();
-    };
-
-    // ----------------------------------------------------
-    // ドラッグ操作中 (イベントハンドラ)
-    // ----------------------------------------------------
-    const onDrag = (clientX, event) => {
-        if (!isDragging) return;
-
-        const deltaX = clientX - startX;
-        
-        // わずかでも動いたらスライド（ドラッグ）と判定
-        if (Math.abs(deltaX) > DRAG_DISTANCE_THRESHOLD) {
-             isSlideDetected = true;
-        }
-
-        // 0.3 は回転の感度
-        const rotationDelta = deltaX * 0.3; 
-        
-        currentRotationY += rotationDelta;
-        
-        // CSSのtransformを更新
-        orbitCenter.style.transform = `rotateY(${currentRotationY}deg)`;
-
-        startX = clientX; // 次の移動の基準点を更新
-        
-        // タッチパネルでは、スライド中にブラウザのスクロールを防ぐ
-        if (event && (event.type === 'touchmove' || event.type === 'mousemove')) {
-             event.preventDefault(); 
+        if (isRotationPaused) {
+            // 回転を停止
+            orbitCenter.classList.add('paused-animation');
+            console.log('Rotation PAUSED (Double Click/Tap)');
+        } else {
+            // 回転を再開 (ゆっくりと回り始める)
+            orbitCenter.classList.remove('paused-animation');
+            console.log('Rotation STARTED (Double Click/Tap)');
         }
     };
+    
+    // ----------------------------------------------------
+    // クリックイベントのリスナー
+    // ----------------------------------------------------
+    document.body.addEventListener('click', (e) => {
+        const currentTime = new Date().getTime();
+        const timeDiff = currentTime - lastTap;
+        
+        // 【ダブルクリック判定】300ms以内に2回目のクリックが発生した場合
+        if (timeDiff < DOUBLE_CLICK_DELAY && timeDiff > 0) {
+            // ブラウザのデフォルトのダブルクリックイベントを抑制
+            e.preventDefault(); 
+            
+            // モニター上のリンクをクリックしても遷移させない
+            if (e.target.closest('.monitor')) {
+                e.preventDefault(); 
+            }
+            
+            // 回転の状態を切り替え
+            toggleRotation();
+            
+            // 処理完了後、 lastTap をリセット
+            lastTap = 0;
+            
+        } else {
+            // 1回目のクリック/タップとして時間を記録
+            lastTap = currentTime;
+        }
+    });
 
     // ----------------------------------------------------
-    // ドラッグ操作終了 (イベントハンドラ)
+    // タッチイベントのリスナー
     // ----------------------------------------------------
-    const endDrag = () => {
-        if (!isDragging) return;
+    document.body.addEventListener('touchend', (e) => {
+        const currentTime = new Date().getTime();
+        const timeDiff = currentTime - lastTap;
         
-        isDragging = false;
-        body.classList.remove('grabbing');
-        
-        // 自動アニメーションを再開
-        orbitCenter.classList.remove('paused-animation');
-    };
+        // 【ダブルタップ判定】
+        if (timeDiff < DOUBLE_CLICK_DELAY && timeDiff > 0) {
+            // 連続タップによる画面拡大などのデフォルト動作を抑制
+            e.preventDefault(); 
+            
+            // 回転の状態を切り替え
+            toggleRotation();
+            
+            // 処理完了後、 lastTap をリセット
+            lastTap = 0;
+        } else {
+            // 1回目のタップとして時間を記録
+            lastTap = currentTime;
+        }
+    });
 
     // ----------------------------------------------------
-    // リンクのクリック/タップ制御
+    // モニターのクリックでリンクに飛ばないようにする処理 (ダブルクリック操作時は不要なため削除)
     // ----------------------------------------------------
     monitors.forEach(monitor => {
         monitor.addEventListener('click', (e) => {
-            // スライド操作（ドラッグ）と判定された場合のみ、リンク遷移をブロック
-            if (isSlideDetected) {
-                e.preventDefault(); 
-            }
-            // 短いクリック/タップの場合はリンク遷移が実行される
+            // 通常のクリックではリンク遷移を許可
+            // ダブルクリック判定は上の body イベントリスナーで行われる
         });
     });
 
-
-    // ----------------------------------------------------
-    // イベントリスナーの設定（マウス＆タッチ）
-    // ----------------------------------------------------
-    
-    // マウスイベント
-    body.addEventListener('mousedown', (e) => {
-        startDrag(e.clientX);
-    });
-    body.addEventListener('mousemove', (e) => {
-        onDrag(e.clientX, e);
-    });
-    body.addEventListener('mouseup', endDrag);
-    body.addEventListener('mouseleave', endDrag); 
-
-    // タッチイベント
-    // 【重要】 { passive: false } を設定し、ブラウザのデフォルト動作（スクロール）を抑制
-    body.addEventListener('touchstart', (e) => {
-        startDrag(e.touches[0].clientX); 
-        // e.preventDefault(); は touchmove で実行します
-    }, { passive: true }); // touchstart は passive: true のままにすることが推奨
-
-    body.addEventListener('touchmove', (e) => {
-        onDrag(e.touches[0].clientX, e);
-        // スライド操作が検出されたら、スクロールを抑制
-        if (isSlideDetected) {
-            e.preventDefault(); 
-        }
-    }, { passive: false }); // ここで passive: false にして preventDefault を有効にする
-
-    body.addEventListener('touchend', endDrag);
 });
