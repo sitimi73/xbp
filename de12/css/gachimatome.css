@@ -1,0 +1,122 @@
+/* 基本リセットとフォント */
+body {
+    font-family: 'メイリオ', Meiryo, '游ゴシック', YuGothic, sans-serif; /* 見やすい日本語フォント */
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0; /* やや灰色がかったシンプルな背景 */
+    color: #333;
+    font-size: 16px;
+}
+
+/* 全体のコンテナ */
+#container {
+    max-width: 1200px; /* PCでの表示幅を固定 */
+    margin: 0 auto;
+    background-color: #fff; /* コンテンツ部分は白 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* わずかな影で立体感を出す */
+}
+
+/* ヘッダー: 目立つように強調 */
+header {
+    background-color: #3f51b5; /* 青系（よく使われる色） */
+    color: #fff;
+    padding: 15px 20px;
+    text-align: center;
+    border-bottom: 5px solid #ff9800; /* 目を引く強調線 */
+}
+header h1 {
+    margin: 0;
+    font-size: 2.2em;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* 軽い影 */
+}
+
+/* メインコンテンツとサイドバーの配置 (2カラム) */
+#main-content {
+    display: flex; /* Flexboxで横並びにする */
+    padding: 20px;
+}
+
+#articles {
+    flex: 3; /* 記事エリアを広めに */
+    padding-right: 20px;
+    border-right: 1px solid #ddd; /* 区切り線 */
+}
+
+#sidebar {
+    flex: 1; /* サイドバーを狭めに */
+    padding-left: 20px;
+}
+
+/* 記事ブロックのスタイル */
+.summary-post {
+    padding: 15px 0;
+    border-bottom: 1px dashed #ccc; /* 点線や実線で記事を区切る */
+    margin-bottom: 10px;
+}
+.summary-post:last-child {
+    border-bottom: none; /* 最後には区切り線不要 */
+}
+
+/* 記事タイトル: 太字で目立たせる */
+.summary-post h2 {
+    font-size: 1.5em;
+    color: #d32f2f; /* 赤系で強調 */
+    border-left: 5px solid #ffc107; /* 左端にアクセントカラー */
+    padding-left: 10px;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+/* 記事メタ情報 */
+.post-meta {
+    font-size: 0.85em;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+/* 続きを読むリンク */
+.read-more {
+    display: block;
+    text-align: right;
+    color: #4caf50; /* 緑系でリンクを目立たせる */
+    font-weight: bold;
+    text-decoration: none;
+    margin-top: 10px;
+}
+.read-more:hover {
+    text-decoration: underline;
+}
+
+/* サイドバーのスタイル */
+#sidebar h3 {
+    border-bottom: 2px solid #3f51b5;
+    padding-bottom: 5px;
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+#sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+#sidebar li {
+    padding: 5px 0;
+    border-bottom: 1px dotted #eee;
+}
+#sidebar a {
+    color: #333;
+    text-decoration: none;
+}
+#sidebar a:hover {
+    color: #ff9800;
+}
+
+/* フッター */
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #e0e0e0;
+    color: #666;
+    font-size: 0.8em;
+    border-top: 1px solid #ddd;
+}
