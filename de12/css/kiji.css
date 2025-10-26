@@ -83,6 +83,15 @@ body {
     font-weight: bold;
 }
 
+/* サブ見出し4 */
+.article-body h5 {
+    font-size: 1.5em;
+    border-left: 5px solid #ff9800; /* アクセントカラーで強調 */
+    padding-left: 10px;
+    margin: 30px 0 15px 0;
+    font-weight: bold;
+}
+
 /* 画像エリア */
 .main-image {
     margin: 20px 0;
