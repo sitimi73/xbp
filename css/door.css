@@ -1,0 +1,174 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    /* 高級感を出すため、背景を深みのある暗色に */
+    background-color: #1a1a1a; 
+    overflow: hidden; 
+    font-family: 'Times New Roman', serif;
+}
+
+#door-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    perspective: 1500px; /* 遠近感をさらに強調 */
+    z-index: 10;
+    display: flex; /* 左右のリンクを並べるため */
+}
+
+/* リンク要素（左右のドアの親） */
+.door-link {
+    width: 50%;
+    height: 100%;
+    text-decoration: none; 
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.door-half {
+    width: 100%; /* 親のリンク要素の幅いっぱいに広がる */
+    height: 100%;
+    /* 高級なダークウッドの色 */
+    background-color: #3f2a1d; 
+    /* 豪華な真鍮やゴールドの縁取り */
+    border: 10px solid #a87932; 
+    box-shadow: 
+        inset 0 0 100px rgba(0, 0, 0, 0.9), /* 内側の影を最大限に深く */
+        0 15px 40px rgba(0, 0, 0, 0.95); /* 影を重く */
+    
+    /* アニメーション設定: 2.5秒かけてゆっくりと重厚に開く */
+    transition: transform 2.5s cubic-bezier(0.6, 0.1, 0.3, 1); 
+    transform-origin: center;
+    position: relative;
+    box-sizing: border-box; /* paddingやborderを幅に含める */
+}
+
+/* アンティークな装飾の表現（パネル） */
+.door-detail {
+    position: absolute;
+    width: 80%;
+    height: 90%;
+    top: 5%;
+    left: 10%;
+    /* 彫刻風の立体的な枠 */
+    border: 15px groove #5f4d3c; 
+    /* 高級木材の光沢をグラデーションで表現 */
+    background: radial-gradient(circle at center, #553e2d, #3f2a1d); 
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.7); /* 深い影 */
+}
+
+/* 左ドアの回転基点 */
+.left-door {
+    transform-origin: left; 
+}
+
+/* 右ドアの回転基点 */
+.right-door {
+    transform-origin: right;
+}
+
+/* ドアが開くアニメーション */
+#door-container.open .left-door {
+    transform: rotateY(-105deg); 
+    box-shadow: 
+        inset 0 0 100px rgba(0, 0, 0, 0.9),
+        -80px 0 50px rgba(0, 0, 0, 0.95); /* 開いた時の影を強調 */
+}
+
+#door-container.open .right-door {
+    transform: rotateY(105deg);
+    box-shadow: 
+        inset 0 0 100px rgba(0, 0, 0, 0.9),
+        80px 0 50px rgba(0, 0, 0, 0.95); /* 開いた時の影を強調 */
+}
+
+/* ドアノブのスタイル - 高級な磨かれた真鍮 */
+.door-knob {
+    position: absolute;
+    width: 55px; /* さらに大きく */
+    height: 55px; 
+    /* 真鍮のグラデーションに光沢を加え、ハイライトを強調 */
+    background: radial-gradient(circle at 40% 40%, #fff8e1, #ffd700, #b8860b, #7a5c32); 
+    border-radius: 50%; 
+    border: 4px solid #6b3e0e; 
+    box-shadow: 
+        inset 0 0 20px rgba(0, 0, 0, 0.8), /* 内側の影を深くし、立体感を強調 */
+        0 8px 15px rgba(0, 0, 0, 0.6); 
+    top: 60%; 
+    transform: translateY(-50%); 
+    z-index: 2; 
+}
+
+.left-knob {
+    right: 40px; 
+}
+
+.right-knob {
+    left: 40px; 
+}
+
+/* 表札のような装飾のスタイル - 銘板のような重厚な金属感 */
+.door-plaque {
+    position: absolute;
+    width: 65%; 
+    height: 120px; 
+    /* 銅や青銅のような渋い金属の質感 */
+    background: linear-gradient(to bottom, #7e6e5f, #5a4b40, #7e6e5f);
+    border: 3px solid #b8860b; /* 金色の縁取り */
+    border-radius: 8px; 
+    box-shadow: 
+        inset 0 0 15px rgba(0, 0, 0, 0.5), 
+        0 4px 8px rgba(0, 0, 0, 0.4); 
+    top: 25%; 
+    left: 50%;
+    transform: translateX(-50%); 
+    z-index: 1;
+}
+
+/* ドアの奥のコンテンツ */
+#content {
+    color: #f5f5f5; 
+    text-align: center;
+    z-index: 5; 
+    opacity: 0;
+    transition: opacity 1s ease-in 2s; 
+    max-width: 80%;
+    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.5); /* 背景を濃くし、ドアが開いた時のコントラストを強調 */
+    border-radius: 10px;
+}
+
+#door-container.open ~ #content {
+    opacity: 1;
+}
+/* style.css の末尾に追加 */
+
+/* 表札自体をFlexboxにして、中の文字を中央に配置 */
+.door-plaque {
+    /* 既存のスタイル... */
+    display: flex; /* 追加 */
+    justify-content: center; /* 追加：水平方向中央寄せ */
+    align-items: center; /* 追加：垂直方向中央寄せ */
+}
+
+/* 表札内のテキストのスタイル */
+.plaque-text {
+    /* アンティークなフォント（今回はTimes New Romanで代用） */
+    font-family: Georgia, 'Times New Roman', Times, serif; 
+    font-size: 24px;
+    font-weight: bold;
+    /* 古びた金文字のような色 */
+    color: #ffd700; 
+    /* 彫刻風に見せるためのテキストシャドウ */
+    text-shadow: 
+        1px 1px 1px #000, 
+        -1px -1px 1px #808080;
+    
+    /* 文字がドアの開閉で一緒に回転するように */
+    transform-style: preserve-3d;
+}

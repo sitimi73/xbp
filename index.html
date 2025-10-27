@@ -1,27 +1,57 @@
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>XBP_HPsample</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高級アンティークドアのランディング</title>
+    <link rel="stylesheet" href="./css/door.css">
 </head>
 <body>
-    <logotohome>
-    <a href="./index.html"><img src="./images/0_XBlogo.png" alt=""></a>
-    </logotohome>
-    <h1>XBP</h1>
-        <h2>jotaroのXBPポートフォリオ一覧</h2>
-        <!-- このようにするとコードとして認識されない。（メモができる）-->
-        <!--番号付きのリスト-->
-        <ol>
-            <li><a href="./de12/index.html">デザイン演習Ⅰ・Ⅱ</a></li>
-            <li><a href="./digi_fab/index.html">デジタルファブリケーション</a></li>
-        </ol>
+    <div id="door-container">
+        
+        <a href="/de12/index.html" class="door-link left-link">
+            <div class="door-half left-door">
+                <div class="door-detail"></div>
+                <div class="door-plaque left-plaque">
+                <span class="plaque-text">デザイン演習Ⅰ・Ⅱ</span></div>
+                <div class="door-knob left-knob"></div>
+            </div>
+        </a>
 
-            
-        <br>
-        <br>
+        <a href="/digi_fab/index.html" class="door-link right-link">
+            <div class="door-half right-door">
+                <div class="door-detail"></div>
+                <div class="door-plaque right-plaque">
+                    <span class="plaque-text">デジタルファブリケーション</span>
+                </div>
+                <div class="door-knob right-knob"></div>
+            </div>
+        </a>
+    </div>
 
+    <div id="content">
+        <h1>Welcome</h1>
+        <p>いらっしゃいませ</p>
+    </div>
 
+    <script>
+        const doorLinks = document.querySelectorAll('.door-link');
+        const doorContainer = document.getElementById('door-container');
+
+        doorLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                // リンクの即時遷移を一旦停止
+                event.preventDefault(); 
+                
+                // ドアを開くクラスを追加
+                doorContainer.classList.add('open');
+
+                // アニメーションが終わってからページ遷移
+                setTimeout(() => {
+                    window.location.href = link.href;
+                }, 2500); // CSSのtransition時間 (2.5秒) に合わせる
+            });
+        });
+    </script>
 </body>
 </html>

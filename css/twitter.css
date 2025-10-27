@@ -1,0 +1,93 @@
+/* --- 全体リセットと共通設定 --- */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Twitterに近いフォント */
+    background-color: #f7f9f9; /* ページ全体の薄い背景色 */
+    margin: 0;
+    padding: 0;
+}
+
+/* --- タイムライン全体のコンテナ --- */
+.timeline-container {
+    max-width: 600px; /* タイムラインの最大幅 */
+    margin: 20px auto; /* ページ中央に配置 */
+    background-color: #ffffff; /* 白い背景 */
+    border: 1px solid #ebeef0; /* 軽い境界線 */
+    border-radius: 12px; /* 角を少し丸くする */
+    overflow: hidden; /* 子要素の境界線からはみ出さないように */
+}
+
+/* --- 個々のツイートアイテム --- */
+.tweet-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid #ebeef0; /* ツイート間の区切り線 */
+    transition: background-color 0.2s;
+}
+
+/* 最後のツイートアイテムには区切り線をなくす（任意） */
+.tweet-item:last-child {
+    border-bottom: none;
+}
+
+/* マウスオーバー時のスタイル（Twitter風） */
+.tweet-item:hover {
+    background-color: #f7f9f9;
+    cursor: pointer;
+}
+
+/* --- ツイートヘッダー（アイコンと名前） --- */
+.tweet-header {
+    display: flex; 
+    align-items: flex-start; /* アイコンを上端に合わせる */
+    margin-bottom: 4px;
+}
+
+/* ユーザーアイコン */
+.user-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%; /* 円形にする */
+    margin-right: 12px;
+    flex-shrink: 0; /* 縮小されないようにする */
+}
+
+/* ユーザー情報（名前とID） */
+.user-info {
+    display: flex;
+    align-items: baseline; /* 名前とIDを横並びにする */
+}
+
+.display-name {
+    font-weight: bold;
+    color: #0f1419;
+    margin-right: 6px;
+}
+
+.user-id {
+    color: #536471; 
+    font-size: 0.9em;
+}
+
+/* --- ツイート本文 --- */
+.tweet-body {
+    /* アイコンの幅とマージンを考慮して左側に余白を作る */
+    margin-left: 60px; 
+}
+
+.tweet-text {
+    margin: 0; 
+    color: #0f1419;
+    font-size: 15px; /* 標準的なツイートのフォントサイズ */
+    line-height: 1.35;
+}
+
+/* --- ツイートフッター（タイムスタンプなど） --- */
+.tweet-footer {
+    /* ツイート本文と同じ位置に配置 */
+    margin-top: 8px;
+    margin-left: 60px;
+}
+
+.timestamp {
+    color: #536471;
+    font-size: 0.8em;
+}
