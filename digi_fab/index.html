@@ -3,54 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>jotaroのデジファブ</title>
-    <link rel="stylesheet" href="./css/stl.css"> 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>軽量2D本棚と3Dアニメーション</title>
+    <link rel="stylesheet" href="./css/antique.css">
 </head>
 <body>
 
-    <header class="header">
-        <div class="logo">jotaro</div>
-        <nav class="nav">
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#work">Work</a>
-            <a href="#contact" class="button-contact">Contact</a>
-        </nav>
-    </header>
+<div class="scene">
+    <div class="bookshelf">
+        
+        <div class="shelf-row" id="shelf-row-1"></div>
+        <div class="shelf-row" id="shelf-row-2"></div>
+        <div class="shelf-row" id="shelf-row-3"></div>
+        
+        <div class="shelf-edge shelf-edge-top"></div>
+        <div class="shelf-edge shelf-edge-middle-1"></div>
+        <div class="shelf-edge shelf-edge-middle-2"></div>
+        <div class="shelf-edge shelf-edge-bottom"></div>
+    </div>
+</div>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>デジタルファブリケーション</h1>
-            <p>AIに作らせた仮のcssです。いずれ変更予定</p>
-            <a href="pinsetto.html" class="button-primary">作ったもの一覧</a>
-        </div>
-    </section>
-
-    <section id="services" class="section services">
-        <h2>つぶやき</h2>        <div class="service-cards">
-            <div class="card">
-                <h3>Left leg</h3>
-                <p>最近左足が不調</p>
-            </div>
-            <div class="card">
-                <h3>Lack of sleep</h3>
-                <p>寝不足だからバイト辞めたい</p>
-            </div>
-            <div class="card">
-                <h3>Injured</h3>
-                <p>腰も痛い</p>
-            </div>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <p>&copy; 202501981 mizunojotaro.</p>
-        <div class="social-links">
-            <a href="#">X</a>
-            <a href="#">Instagram</a>
-        </div>
-    </footer>
-
+<script src="./antique.js"></script>
 </body>
 </html>
