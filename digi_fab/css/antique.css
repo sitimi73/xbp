@@ -1,141 +1,117 @@
-:root {
-    /* 色のバリエーション (変更なし) */
-    --color-1: #2e8b57; --color-2: #4682b4; --color-3: #cd5c5c; --color-4: #800080;
-    --color-5: #d2691e; --color-6: #6a5acd; --color-7: #4b0082; --color-8: #b22222;
-    --color-9: #008b8b; --color-10: #a52a2a; 
-
-    /* 木材の色 */
-    --shelf-wood-dark: #654321;
-    --shelf-wood-light: #8B4513;
-}
-
+/* 基本リセットとフォント設定 */
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
-    overflow: hidden;
-}
-
-/* 3D空間の視点 (シーン全体) - 本のアニメーション用 */
-.scene {
-    perspective: 2000px; /* 本が飛び出す時の3D効果のために維持 */
-    width: 100vw;
-    height: 100vh;
-    display: flex;
+    padding: 0;
+    background-color: #222831; /* ダークな背景色 */
+    color: #EEEEEE; /* 明るい文字色 */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    display: flex; /* bodyもflexにして.containerを中央に配置しやすくする */
     justify-content: center;
     align-items: center;
 }
 
-/* 本棚全体 - 傾きをなくし、完全に正面向きに */
-.bookshelf {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    /* transform-style: preserve-3d; */ /* 本棚自体は2Dなので不要 */
-    transform: none; /* 傾きを削除 */
-    background-color: var(--shelf-wood-dark);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-    gap: 0;
-    padding: 20px 50px;
-    box-sizing: border-box;
-}
-
-/* 各棚の段 */
-.shelf-row {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d; /* 本のアニメーションのために子要素に継承 */
+/* 💻 デスクトップ表示 (基本レイアウト) --------------------- */
+.container {
     display: flex;
-    align-items: flex-end; /* 本を棚の底にぴったり合わせる */
-    /* padding-bottom: 20px; */ /* 棚板の厚みは棚板のbottomで調整するため不要 */
-    box-shadow: inset 0 -5px 10px rgba(0, 0, 0, 0.3), inset 0 5px 10px rgba(0, 0, 0, 0.1);
+    /* 左右のボタンを両端に寄せ、中央の時計のスペースを確保 */
+    justify-content: space-between;
+    align-items: center; /* 要素を垂直方向に中央揃え */
+    width: 90%; /* 画面幅の90%を使用 */
+    max-width: 1200px;
+    padding: 20px;
 }
 
-/* 棚板の装飾 */
-.shelf-edge { 
-    position: absolute; 
-    width: 100%; 
-    height: 20px; 
-    background-color: var(--shelf-wood-light); 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); 
-    transform: translateZ(20px); 
-    left: 0; 
+/* 中央コンテンツ (時計と挨拶) */
+.center-content {
+    text-align: center;
+    flex-grow: 1; /* 中央要素に最大のスペースを与える */
+    padding: 0 40px; /* 左右のボタンとの間隔 */
 }
-.shelf-edge-top { top: 0; }
-.shelf-edge-middle-1 { top: calc(33.33% - 10px); }
-.shelf-edge-middle-2 { top: calc(66.66% - 10px); }
-.shelf-edge-bottom { bottom: 0; }
 
-
-/* -------------------------------------- */
-/* 本のスタイル (背表紙の2D表現) */
-/* -------------------------------------- */
-
-.book {
-    --h: var(--b-height);
-    --w: var(--b-width);
-    --c: var(--b-color);
-    
-    position: relative; /* absoluteからrelativeに変更してflexアイテムとして配置 */
-    /* transform-style: flat; */ /* 不要 */
-    
-    width: var(--w); /* 厚さが幅になる */
-    height: var(--h);
-    
-    /* transform: translateY(calc(var(--h) * -1)); */ /* flexboxで下揃えになるので不要 */
-    
-    background-color: var(--c);
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    /* 縦書きのタイトル */
-    writing-mode: vertical-rl;
-    color: white;
-    font-size: 14px;
+/* デジタル時計のスタイル */
+.clock {
+    font-size: 8vw; /* 画面幅に応じたサイズ */
     font-weight: bold;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-    padding: 5px 0;
-    overflow: hidden;
+    letter-spacing: 5px;
+    text-shadow: 0 0 10px #00ADB5; /* ネオン風のエフェクト */
+}
 
-    /* アニメーション設定 */
-    transition: transform 1s ease-in-out, box-shadow 0.3s, background-image 0.3s;
-    cursor: pointer;
+.greeting {
+    font-size: 1.5em;
+    margin-top: 10px;
+    color: #00ADB5;
+}
+
+/* サイドボタン群のコンテナ */
+.side-nav {
+    display: flex;
+    flex-direction: column; /* ボタンを縦に並べる */
+    gap: 15px; /* ボタン間の間隔 */
+    width: 150px; /* デスクトップでのボタンコンテナの幅を固定 */
+}
+
+/* 個別ボタンのスタイル */
+.nav-button {
+    display: block; /* ブロック要素にして縦に並ぶようにする */
     text-decoration: none;
-    z-index: 10;
+    color: #222831;
+    background-color: #00ADB5;
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.1s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* -------------------------------------- */
-/* クリック時のアニメーション (2D -> 3D変形) */
-/* -------------------------------------- */
-
-.book.is-open {
-    /* relative配置なので、transform-originは中央基準でOK */
-    transform-origin: center center;
-
-    /* Z軸を前に出し、Y軸で回転して3Dの側面を見せる */
-    transform: translateZ(500px)    /* 手前に飛び出す */
-               translateX(-300px)   /* 画面左に移動 */
-               rotateY(20deg)       /* 側面を見せるための回転 */
-               scale(1.1);          /* 少し大きくする */
-    
-    /* 本の立体感のためのシャドウ */
-    box-shadow: -20px 20px 30px rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    
-    /* 背表紙の表現を強化 */
-    background-image: linear-gradient(to right, rgba(0,0,0,0.2), rgba(255,255,255,0.2));
+.nav-button:hover {
+    background-color: #393E46;
+    color: #00ADB5;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* アニメーション中はクリックを無効にする */
-.book.animating {
-    pointer-events: none;
+/* 📱 スマートフォン表示 (レスポンシブ対応) --------------------- */
+/* 画面幅が768px以下の場合に適用 */
+@media (max-width: 768px) {
+    
+    .container {
+        flex-direction: column; /* 要素を縦並びに変更 */
+        padding: 10px;
+        width: 100%;
+    }
+
+    /* ボタンを時計の上下に積み重ねるため、順序を指定 */
+    .left-nav {
+        order: -1; /* 時計より上に配置 (一番上) */
+    }
+    .right-nav {
+        order: 1;  /* 時計より下に配置 (一番下) */
+    }
+    .center-content {
+        order: 0;  /* 中央に配置 */
+        width: 100%;
+        padding: 40px 0; /* 上下のボタンとの間隔 */
+    }
+
+    /* 時計のフォントサイズをスマホ向けに大きく調整 */
+    .clock {
+        font-size: 18vw;
+    }
+
+    /* サイドボタン群を横に並べる */
+    .side-nav {
+        flex-direction: row; /* 横並びに変更 */
+        flex-wrap: wrap; /* 画面幅に応じて折り返す */
+        width: 100%;
+        justify-content: center; /* ボタンを中央揃え */
+        gap: 10px;
+    }
+    
+    /* スマホで横に2個並ぶようにボタンの幅を調整 */
+    .nav-button {
+        width: 45%; 
+        box-sizing: border-box; /* paddingやborderを幅に含める */
+    }
 }
