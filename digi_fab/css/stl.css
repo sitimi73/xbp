@@ -6,6 +6,7 @@ body {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -30,4 +31,11 @@ body {
     font-weight: bolder;
     letter-spacing: 6px;
     text-shadow: 0 0 100px #ffa93a;
+}
+
+.link {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
 }
