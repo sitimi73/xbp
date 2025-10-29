@@ -63,11 +63,31 @@ body {
 .atama {
     position: fixed;
     background-color: #000000;
+    box-shadow: 0 0 20px #00a968;
     z-index: 1;
     width: 100%;
     top: 0;
     left: 0;
     position: fixed;
     justify-content: center;
-    
+    text-align: center;
+    display: flex;
+    padding: 10px 10px;
+    gap: 200px;
+}
+
+.bord {
+    border-radius: 4px;
+    font-size: larger;
+    color: #ffffff;
+    text-shadow: 0 0 20px #00a968;
+    text-align: center;
+    justify-content: center;
+
+
+}
+
+.bord h1 {
+    color: #ffffff;
+    text-shadow: 0 0 20px #00a968;
 }
