@@ -20,7 +20,7 @@ body {
 }
 
 .center {
-    text-align: center;
+    text-align:center;
     flex-grow: 1;
     padding: 0 60px;
 }
