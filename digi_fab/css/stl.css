@@ -30,7 +30,9 @@ body {
     font-size: 8vw;
     font-weight: bolder;
     letter-spacing: 6px;
-    text-shadow: 0 0 100px #ffa93a;
+    text-shadow: 0 0 100px #00a968;
+
+    
 }
 
 .link {
@@ -53,7 +55,19 @@ body {
     text-align: center;
     font-weight:900 ;
     transition: background-color 1s transform 1s;
-    box-shadow: 0 0 20px #ffa93a;
+    box-shadow: 0 0 20px #00a968;
     width: 200px;
 
+}
+
+.atama {
+    position: fixed;
+    background-color: #000000;
+    z-index: 1;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    justify-content: center;
+    
 }
