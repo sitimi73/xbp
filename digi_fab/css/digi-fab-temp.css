@@ -114,3 +114,14 @@ body {
     text-align: justify;
 
 }
+
+.inside-7 {
+    max-width: 780px;
+    margin: 40px auto;
+    background-color: aliceblue;
+    box-shadow: 10px 10px  rgb(165, 203, 236);
+    height: 100%; 
+    padding: 20px;
+    border-radius: 5px;
+    text-align: justify;
+}
