@@ -1,4 +1,4 @@
-
+/*javascript、調べながら頑張ったけどあんまり頭に入ってない。*/ 
 function updateClock() {
     const now = new Date();
     
