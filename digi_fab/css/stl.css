@@ -92,3 +92,10 @@ body {
     color: #ffffff;
     text-shadow: 0 0 20px #00a968;
 }
+
+@media (min-width:768px){
+    .button {
+        flex-direction: column;
+        
+    }
+}
