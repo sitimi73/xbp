@@ -93,7 +93,7 @@ body {
     text-shadow: 0 0 20px #00a968;
 }
 
-@media (min-width:480px){
+@media (max-width:480px){
     .button {
         flex-direction: column;
 
