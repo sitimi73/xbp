@@ -96,6 +96,7 @@ body {
 @media (max-width:480px){
     .button {
         flex-direction: column;
+        display: flex;
 
     }
 }
