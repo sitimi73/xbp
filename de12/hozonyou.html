@@ -1,0 +1,29 @@
+#このコードは提出用です。本来はここにAPIキーがありますが流出を防ぐために消して部分ごと消してあります。
+#入力された情報をAIに読み込ませる。これが日本語をＡＩの理解しやすい形に整えてくれる。
+def suggest_stretch(symptom,time,pain,cause,old):
+    prompt = f""" 
+    ユーザーの症状: {symptom}
+    症状が続いている期間: {time}
+    痛みの程度: {pain}
+    考えられる原因: {cause}
+    ユーザーの何例: {old}
+    あなたは理学療法士(PT)です。
+    上記の情報から効果的な治療法と自身でできるストレッチを提案してください。
+    症状がひどいと判断したらどこの病院に行けばいいかを教えてください。
+    """
+
+#ＡＩを呼び出すところ。
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[{"role": "system", "content": "あなたは健康とストレッチの専門家です。"},#ＡＩの性格を決める。
+                  {"role": "user", "content": prompt}],#使用者のデータ。
+        temperature=0.2 #ＡＩの回答の創造性を決める１に近いほど創造的になる。今回は現実的な回答が欲しいので０に近く。
+    )
+    return response.choices[0].message.content#AIの返答。本文のみ記載される。
+symptom = input("痛みを感じる場所：")#情報を入力する。
+time = input("いつから痛いか：")
+pain = input("どの程度の痛みか：")
+cause = input("思いつく原因：")
+old = input("年齢")
+suggestion = suggest_stretch(symptom,time,pain,cause,old)#上記に入力したsuggest-stretchの部分を出す。(こういう時なんていうんだろう。呼ぶ？)
+print("\nおすすめストレッチと病院：\n", suggestion)#AIの返答を記載。
