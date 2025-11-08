@@ -1,12 +1,75 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>jotaroの第5回</title>
-    <link rel="stylesheet" href="">
+  <meta charset="UTF-8">
+  <title>jotaroの第5回</title>
+  <link rel="stylesheet" href="./css/yahoo.css">
 </head>
 <body>
-    
+  <header>
+    <h1>pythonapp「理学療法士君」</h1>
+  </header>
+
+  <main>
+    <h2> 🍁アプリ説明🍁 </h2>
+    <section class="content">
+      <p>
+        体の痛い部分の情報を入れると「理学療法士君」が、その部分のストレッチ方法を教えてくれます。
+      </p>
+      <p>
+        治療法と、場合によっては病院も教えてくれるよ！
+      </p>
+    </section>
+
+    <h2>🍁コード🍁</h2>
+    <section class="content">
+        <pre><code>
+            
+            #このコードは提出用です。本来はここにAPIキーがありますが流出を防ぐために消して部分ごと消してあります。
+#入力された情報をAIに読み込ませる。これが日本語をAIの理解しやすい形に整えてくれる。
+def suggest_stretch(symptom,time,pain,cause,old):
+    prompt = f""" 
+    ユーザーの症状: {symptom}
+    症状が続いている期間: {time}
+    痛みの程度: {pain}
+    考えられる原因: {cause}
+    ユーザーの何例: {old}
+    あなたは理学療法士(PT)です。
+    上記の情報から効果的な治療法と自身でできるストレッチを提案してください。
+    症状がひどいと判断したらどこの病院に行けばいいかを教えてください。
+    """
+
+#ＡＩを呼び出すところ。
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[{"role": "system", "content": "あなたは健康とストレッチの専門家です。"},#ＡＩの性格を決める。
+                  {"role": "user", "content": prompt}],#使用者のデータ。
+        temperature=0.2 #ＡＩの回答の創造性を決める１に近いほど創造的になる。今回は現実的な回答が欲しいので０に近く。
+    )
+    return response.choices[0].message.content#AIの返答。本文のみ記載される。
+symptom = input("痛みを感じる場所：")#情報を入力する。
+time = input("いつから痛いか：")
+pain = input("どの程度の痛みか：")
+cause = input("思いつく原因：")
+old = input("年齢")
+suggestion = suggest_stretch(symptom,time,pain,cause,old)#上記に入力したsuggest-stretchの部分を出す。(こういう時なんていうんだろう。呼ぶ？)
+print("\nおすすめストレッチと病院：\n", suggestion)#AIの返答を記載。
+        </code></pre>
+
+    </section>
+
+    <h2>🍁作った感想🍁</h2>
+    <section class="content">
+        promptなどの意味をAIに教えてもらったりwebページで調べたりしながらも大まかな枠組みは自身で何とか作ることができた。（返答の部分はAIに仕組みを教えてもらいました。）
+        
+        しかしその分できることは少なく、自身の足りない能力の範囲内のものしか作れなかった。私自身身体の痛みに悩んでいるので、そこをアイデアに使えたことはとても良い点だったと思う。
+        
+    </section>
+
+
+  </main>
+
+  
+
 </body>
 </html>
