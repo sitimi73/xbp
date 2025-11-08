@@ -2,28 +2,66 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>和風シンプルページ</title>
+  <title>jotaroの第5回</title>
   <link rel="stylesheet" href="./css/yahoo.css">
 </head>
 <body>
   <header>
-    <h1>【お茶の香る】和風ブログへようこそ</h1>
+    <h1>pythonapp「理学療法士君」</h1>
   </header>
 
   <main>
-    <h2>🌿 本日の記事タイトル </h2>
+    <h2> 🍁アプリ説明🍁 </h2>
     <section class="content">
       <p>
-        「和」のテイストを取り入れたシンプルなデザインです。
-        背景は柔らかな白、ヘッダーには深みのある緑（千歳緑）を使いました。
-        本文エリアは、少しだけ畳の縁のような枠線をつけて装飾しています。
+        体の痛い部分の情報を入れると「理学療法士君」が、その部分のストレッチ方法を教えてくれます。
       </p>
       <p>
-        フォントも明朝体（'Yu Mincho'など）を指定することで、落ち着いた雰囲気を演出しています。
-        このCSSを適用して、和の空間を楽しんでください。
+        治療法と、場合によっては病院も教えてくれるよ！
       </p>
     </section>
+
+    <h2>🍁コード🍁</h2>
+    <section class="content">
+        <pre><code>
+            
+            #このコードは提出用です。本来はここにAPIキーがありますが流出を防ぐために消して部分ごと消してあります。
+#入力された情報をAIに読み込ませる。これが日本語をAIの理解しやすい形に整えてくれる。
+def suggest_stretch(symptom,time,pain,cause,old):
+    prompt = f""" 
+    ユーザーの症状: {symptom}
+    症状が続いている期間: {time}
+    痛みの程度: {pain}
+    考えられる原因: {cause}
+    ユーザーの何例: {old}
+    あなたは理学療法士(PT)です。
+    上記の情報から効果的な治療法と自身でできるストレッチを提案してください。
+    症状がひどいと判断したらどこの病院に行けばいいかを教えてください。
+    """
+
+#ＡＩを呼び出すところ。
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[{"role": "system", "content": "あなたは健康とストレッチの専門家です。"},#ＡＩの性格を決める。
+                  {"role": "user", "content": prompt}],#使用者のデータ。
+        temperature=0.2 #ＡＩの回答の創造性を決める１に近いほど創造的になる。今回は現実的な回答が欲しいので０に近く。
+    )
+    return response.choices[0].message.content#AIの返答。本文のみ記載される。
+symptom = input("痛みを感じる場所：")#情報を入力する。
+time = input("いつから痛いか：")
+pain = input("どの程度の痛みか：")
+cause = input("思いつく原因：")
+old = input("年齢")
+suggestion = suggest_stretch(symptom,time,pain,cause,old)#上記に入力したsuggest-stretchの部分を出す。(こういう時なんていうんだろう。呼ぶ？)
+print("\nおすすめストレッチと病院：\n", suggestion)#AIの返答を記載。
+        </code></pre>
+
+    </section>
+
+
   </main>
+
+  
 
 </body>
 </html>
