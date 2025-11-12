@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+    
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    <div class="slider-area">
+    <div><img src="./images/0_XBlogo.png" alt="画像1"></div>
+    <div><img src="path/to/image2.jpg" alt="画像2"></div>
+    <div><img src="path/to/image3.jpg" alt="画像3"></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    
+    <script>
+        // HTMLが全て読み込まれたら実行
+        $(document).ready(function(){
+            // .slider-area に対してスライドショーの機能（slick()）を適用する
+            $('.slider-area').slick({
+                // ここにスライドショーの設定を書きます
+                autoplay: true,          // 自動再生: ON
+                autoplaySpeed: 3000,     // 自動再生の速度: 3000ミリ秒 (3秒)
+                dots: true,              // ページネーション（点々）: 表示
+                arrows: true             // 前後の矢印: 表示
+            });
+        });
+    </script>
+</body>
+</html>
+</body>
+</html>
