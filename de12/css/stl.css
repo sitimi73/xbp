@@ -91,18 +91,18 @@ body {
     text-shadow: 0 0 20px #DAA520;
 }
 
-/* PC向けの共通スタイル */
-.container {
-  display: flex; /* PCでは横並び */
-}
-
-/* 画面幅が767px以下の場合に適用されるスタイル */
 @media (max-width: 767px) {
-  .container {
-    flex-direction: column; /* スマホでは縦並び */
-  }
-  /* 他にも文字サイズや余白などを調整 */
-  body {
-    font-size: 16px;
-  }
+    /* .link のギャップをスマホ向けに調整 */
+    .link {
+        gap: 8px; /* スマホではボタン間の隙間を小さくする */
+        padding: 0 5px; /* 画面端の余裕を少し調整 */
+    }
+
+    /* .button の幅をスマホ向けに調整（例：2列表示にする）*/
+    .button {
+        /* calc()を使って、画面幅の約半分から、左右のギャップを引いた幅にする */
+        width: calc(50% - 10px); 
+        padding: 15px 5px; /* 縦のパディングを増やして押しやすくする */
+        font-size: 0.9rem; /* 文字を少し小さくする */
+    }
 }
