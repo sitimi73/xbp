@@ -41,6 +41,7 @@ main {
   
   border: 4px double #c0b0a0; 
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  width: auto;
 }
 
 
@@ -49,4 +50,6 @@ h2 {
   border-bottom: 2px solid #800000; 
   padding-bottom: 5px;
   font-size: 1.4em;
+
 }
+
