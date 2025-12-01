@@ -75,8 +75,9 @@ body {
     justify-content: center;
     text-align: center;
     display: flex;
-    padding: 10px 10px;
-    gap: 200px;
+    padding: 10px 5%;
+    gap: 100px;
+    
 }
 
 .bord {
