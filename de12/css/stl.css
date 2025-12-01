@@ -38,8 +38,9 @@ body {
     display: flex;
     justify-content: center;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 100px;
+    gap: 10px;
     width: 100%;
 }
 
