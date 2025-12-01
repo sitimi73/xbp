@@ -90,3 +90,19 @@ body {
     color: #ffffff;
     text-shadow: 0 0 20px #DAA520;
 }
+
+/* PC向けの共通スタイル */
+.container {
+  display: flex; /* PCでは横並び */
+}
+
+/* 画面幅が767px以下の場合に適用されるスタイル */
+@media (max-width: 767px) {
+  .container {
+    flex-direction: column; /* スマホでは縦並び */
+  }
+  /* 他にも文字サイズや余白などを調整 */
+  body {
+    font-size: 16px;
+  }
+}
