@@ -1,0 +1,55 @@
+/* 和のcss */
+body {
+  margin: 0;
+  padding: 0;
+ 
+  background-color: #f5f5f5; 
+  
+  font-family: 'Hiragino Mincho Pro', 'Yu Mincho', 'serif'; 
+  color: #333333; 
+  line-height: 1.7; 
+}
+
+
+header {
+  
+  background-color: #336633;
+  color: white; 
+  padding: 20px 50px;
+  text-align: center;
+  box-shadow: 0 4px 6px -4px rgba(0, 0, 0, 0.3); 
+}
+
+header h1 {
+  font-size: 1.8em;
+  margin: 0;
+  letter-spacing: 0.1em; 
+}
+
+
+main {
+  width: 80%;
+  max-width: 800px;
+  margin: 40px auto; 
+  padding: 20px;
+}
+
+
+.content {
+  background-color: white; 
+  padding: 30px;
+  
+  border: 4px double #c0b0a0; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  width: auto;
+}
+
+
+h2 {
+  color: #336633; 
+  border-bottom: 2px solid #800000; 
+  padding-bottom: 5px;
+  font-size: 1.4em;
+
+}
+

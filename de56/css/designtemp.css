@@ -1,0 +1,116 @@
+@charset "utf-8";/*css作る方が時間かかった気がする。*/
+
+body {
+    background-color:rgb(8, 3, 40);
+    font-size: 18px;
+    text-align: center;
+    line-height: 1.8;
+}
+
+
+
+.header {
+    height: 40px;
+    display: flex;
+    background-color: aquamarine;
+    font-size: larger;
+    width: 100%;
+    top: 0;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 10px;
+    box-shadow: 10px 10px rgb(49, 201, 150);
+    float:initial ;
+    max-width: 820px; 
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+
+    
+}
+
+.inside-1 {
+    max-width: 780px;
+    margin: 40px auto;
+    background-color: aliceblue;
+    box-shadow: 10px 10px  rgb(165, 203, 236);
+    height: 100%; 
+    padding: 20px;
+    border-radius: 5px;
+    text-align: justify;
+}
+
+.h3 {
+    font-weight: bolder;
+    
+
+}
+
+.maintext {
+    
+    text-align: justify;
+
+}
+
+.inside-2 {
+    max-width: 780px;
+     margin: 40px auto;
+    background-color: aliceblue;
+    box-shadow: 10px 10px  rgb(165, 203, 236);
+    height: 100%; 
+    padding: 20px;
+    border-radius: 5px;
+    text-align: justify;
+
+}
+
+.inside-3 {
+    max-width: 780px;
+    margin: 0 auto;
+    background-color: aliceblue;
+    box-shadow: 10px 10px  rgb(165, 203, 236);
+    height: 100%; 
+    padding: 20px;
+    border-radius: 5px;
+    text-align: justify;
+}
+
+.h6 {
+    font-size: xx-small;
+}
+
+.inside-4 {
+    max-width: 780px;
+    margin: 40px auto;
+    background-color: aliceblue;
+    box-shadow: 10px 10px  rgb(165, 203, 236);
+    height: 100%; 
+    padding: 20px;
+    border-radius: 5px;
+    text-align: justify;
+    
+}
+
+.inside-5 {
+    max-width: 780px;
+    margin: 40px auto;
+    background-color: aliceblue;
+    box-shadow: 10px 10px  rgb(165, 203, 236);
+    height: 100%; 
+    padding: 20px;
+    border-radius: 5px;
+    text-align: justify;
+}
+
+.inside-6 {
+    max-width: 780px;
+    margin: 40px auto;
+    background-color: aliceblue;
+    box-shadow: 10px 10px  rgb(165, 203, 236);
+    height: 100%; 
+    padding: 20px;
+    border-radius: 5px;
+    text-align: justify;
+
+}
