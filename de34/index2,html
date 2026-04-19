@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ここにタイトルを入れます</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="ここにサイト説明を入れます">
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="home">
+
+<div id="container">
+
+<header class="site-header" id="header">
+
+<h1 id="logo"><a href="index.html"><img src="images/logo_white.png" alt="あなたのサイト名"></a></h1>
+
+<!--ヘッダー内メニュー（開閉メニューはhtmlの下の方にあります）-->
+<div id="menubar2">
+<nav>
+<ul>
+<li><a href="index.html">ホーム</a></li>
+<li><a href="">ドロップダウン</a>
+	<ul>
+	<li><a href="#">メニューメニューメニュー</a></li>
+	<li><a href="#">メニュー</a></li>
+	<li><a href="#">メニュー</a></li>
+	<li><a href="#">メニュー</a></li>
+	</ul>
+</li>
+<li><a href="page.html">ページ</a></li>
+<li><a href="page.html">ページ</a></li>
+</ul>
+</nav>
+</div>
+
+</header>
+
+<!--スライドショー-->
+<div class="mainimg">
+
+<div class="slide img1">
+<div class="text"><div class="text-bg">
+<h2>信頼できるサービス</h2>
+<p>お客様の課題に寄り添い、確かな実績でお応えします。</p>
+</div></div>
+<picture><source media="(max-width: 800px)" srcset="images/mainimg1.jpg"><img src="images/mainimg1.jpg" alt=""></picture>
+</div>
+
+<div class="slide img2">
+<div class="text left-parts"><div class="text-bg">
+<h2>暮らしに役立つご提案</h2>
+<p>豊かな暮らしを支える、きめ細やかなサポートを。</p>
+</div></div>
+<picture><source media="(max-width: 800px)" srcset="images/mainimg2.jpg"><img src="images/mainimg2.jpg" alt=""></picture>
+</div>
+
+<div class="slide img3">
+<div class="text right-parts"><div class="text-bg">
+<h2>安心をお届けします</h2>
+<p>長年培ったノウハウで、最適なソリューションを。</p>
+</div></div>
+<picture><source media="(max-width: 800px)" srcset="images/mainimg3.jpg"><img src="images/mainimg3.jpg" alt=""></picture>
+</div>
+
+<div class="slide-indicators"></div>
+</div>
+<!--/.mainimg-->
+
+<div id="contents">
+
+<main>
+
+<section style="margin-bottom: 200vh;">
+
+<h2>frame6-biz1-slide-zoom</h2>
+<ul>
+<li><span class="color-check">html側にメニューブロックが２箇所あります。</span>１つはheader内、もう１つはhtmlの下の方です。それぞれ書き換えて下さい。</li>
+</ul>
+
+<p>このフレームで使用しているカラーセット。（css/theme.cssで一括置き換えできます）<br>
+<span style="color: var(--primary-color);font-size: 2rem;">●</span>
+<span style="color: var(--light-color);font-size: 2rem;">●</span>
+<span style="color: var(--accent-color);font-size: 2rem;">●</span>
+</p>
+
+<h3>利用規約</h3>
+<ul>
+<li>このテンプレートは、<a href="https://template-party.com/">Template Party</a>にて無料配布している<a href="https://template-party.com/parts/">パーツ</a>です。必ずダウンロード先のサイトの<a href="https://template-party.com/read.html">利用規約</a>をご一読の上でご利用下さい。</li>
+<li>最下部の著作表示『Web Design:Template-Party』は無断で削除しないで下さい。わざと見えなく加工する事も禁止です。下部の著作を外したい場合は<a href="https://template-party.com/">Template-Party</a>の<a href="https://template-party.com/member.html">ライセンス契約</a>を行う事でHP下部の著作を外す事ができます。</li>
+</ul>
+
+<h3>メイン画像について</h3>
+<ul>
+<li>メイン画像を入れ替えたい場合は、弊社素材サイト<a href="https://haconana.com/">haconana</a>をご活用下さい。無料会員登録で1日1点まで無料DLできます。</li>
+<li>画面幅800px以下の端末向けに小さな画像を使いたい場合は、htmlのsrcsetで指定されている画像ファイル名を準備したものに書き換えて下さい。デフォルトでは大きな端末用と同じファイルが指定されています。mediaの値はcssのメディアクエリと同じなので、例えば縦長端末用などの指定もできます。</li>
+<li>テキストブロックはデフォルトでセンタリングされますが、左寄せしたいなら「text」を「text <span class="color-check">left</span>」に、右寄せにしたいなら「text <span class="color-check">right</span>」にして下さい。</li>
+
+<li>デフォルトは３枚構成ですが、４枚目を追加したい場合は、html側の３枚目のブロックをコピペし、img3をimg4に書き換えて、画像ファイル名も４枚目に変更して下さい。</li>
+</ul>
+
+</section>
+
+</main>
+
+</div>
+<!--/#contents-->
+
+<!--以下の行はテンプレートの著作。削除しないで下さい。-->
+<span class="pr"><a href="https://template-party.com/" target="_blank">《Web Design:Template-Party》</a></span>
+
+</div>
+<!--/#container-->
+
+<!--ページの上部へ戻るボタン-->
+<div class="pagetop"><a href="#"><i class="fas fa-angle-double-up"></i></a></div>
+
+<!--開閉ボタン（ハンバーガーアイコン）-->
+<div id="menubar_hdr">
+<span></span><span></span><span></span>
+</div>
+
+<!--開閉メニュー-->
+<div id="menubar">
+
+<p>※ここは、header内メニューとは別管理です。htmlの下の方に入っています。</p>
+
+<nav>
+<ul>
+<li><a href="index.html">ホーム</a></li>
+<li><a href="">ドロップダウン</a>
+	<ul>
+	<li><a href="#">メニューメニューメニュー</a></li>
+	<li><a href="#">メニュー</a></li>
+	<li><a href="#">メニュー</a></li>
+	<li><a href="#">メニュー</a></li>
+	</ul>
+</li>
+<li><a href="page.html">ページ</a></li>
+<li><a href="page.html">ページ</a></li>
+</ul>
+</nav>
+
+</div>
+<!--/#menubar-->
+
+<!--jQueryの読み込み-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!--パララックス（inview）-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/protonet-jquery.inview/1.1.2/jquery.inview.min.js"></script>
+<script src="js/jquery.inview_set.js"></script>
+
+<!--このテンプレート専用のスクリプト-->
+<script src="js/main.js"></script>
+<script src="js/parts.js"></script>
+
+</body>
+</html>
