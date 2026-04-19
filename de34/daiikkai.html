@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>jotaroの第一回</title>
+  <link rel="stylesheet" href="./css/yahoo.css">
+</head>
+<body>
+  <main class="container">
+    <article>
+      <h1>Arduino</h1>
+      <p class="meta">jotaro</p>
+
+      <section>
+        <h2>Arduinoとは</h2>
+        <p>
+          マイクロコントローラ（小さいコンピュータ）を搭載したマイコンボードと呼ばれる基盤の一種である。Arduino IDEというソフトウェアを用いてコードを転送し動作させる。
+        </p>
+      </section>
+
+      <section>
+        <h2>振り返り</h2>
+        <p>
+          ブレッドボードと言われる差し込むだけではんだ付けなしで電子回路を組める実験用の板を使い、LEDランプの点灯、フォトレジスタを利用した明るさで抵抗が変化するランプの点灯を行った。
+        </p>
+      </section>
+
+      <section>
+        <h2>やったこと</h2>
+        <p>
+          ・LEDランプ点灯
+          ・抵抗器とフォトレジスタを利用した明るさで点灯のオンオフが変わる
+          ・AIを利用してコードを書き五色のランプがランダムに点灯するようにした。
+        </p>
+      </section>
+
+      <section>
+        <h2>コード</h2>
+        <pre><code class="language-cpp">
+#include &lt;Adafruit_NeoPixel.h&gt;
+#define PIN        9 // 信号用のピンを指定
+#define NUMPIXELS 5 // LEDの数を指定
+int brightness=50;//明るさ
+
+Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
+
+void setup() {
+  pixels.begin(); // NeoPixel出力ピンの初期化
+  pixels.setBrightness(brightness);
+}
+
+void loop() {
+  pixels.clear(); // すべてのLEDの色を0にセット
+
+  for(int i=0; i&lt;NUMPIXELS; i++) {
+    int r = 0;
+    int g = 0;
+    int b = 0;
+
+    int mainColor = random(0, 3);
+
+    if(mainColor == 0) {
+      r = 255;
+      g = random(0, 100);
+      b = random(0, 100);
+    } else if(mainColor == 1) {
+      g = 255;
+      r = random(0, 100);
+      b = random(0, 100);
+    } else {
+      b = 255;
+      r = random(0, 100);
+      g = random(0, 100);
+    }
+
+    pixels.setPixelColor(i, pixels.Color(r, g, b));
+    pixels.show();
+    delay(50);
+  }
+}
+</code></pre>
+      </section>
+    </article>
+  </main>
+</body>
+</html>
+
