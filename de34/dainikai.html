@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>jotaroの第二回</title>
+  <link rel="stylesheet" href="./css/yahoo.css">
+</head>
+<body>
+  <main class="container">
+    <article>
+      <h1>Arduinoとモーター</h1>
+      <p class="meta">jotaro</p>
+
+      <section>
+        <h2>ステッピングモーター</h2>
+        <p>
+          ステッピングモーターは、電気信号を入力することで一定の角度だけ回転するモーターである。回転数だけでなく角度も調節することが可能。
+        </p>
+      </section>
+
+      <section>
+        <h2>作成物</h2>
+        <p>
+          「暗くなると不安で情緒不安定になり暴れだす人」を作成。前回の暗くなるとランプがつく仕組みを利用し、一定の暗さで動きが変わるように。暗くなった時の動きが一定の数値内をランダムになるようすることで暴れている雰囲気を出した。
+        </p>
+      </section>
+
+      <section>
+        <h2>やったこと</h2>
+        <p>
+          ・LEDランプ点灯
+          ・抵抗器とフォトレジスタを利用した明るさで点灯のオンオフが変わる
+          ・AIを利用してコードを書き五色のランプがランダムに点灯するようにした。
+        </p>
+      </section>
+
+      <section>
+        <h2>コード</h2>
+        <pre><code class="language-cpp">
+const int DIR  = 8;
+const int STEP = 9;
+
+const int STEP_45 = 25;
+
+int currentPos = 0;
+bool isRandomMode = false;
+bool needReset = false;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(13, OUTPUT);
+
+  pinMode(DIR, OUTPUT);
+  pinMode(STEP, OUTPUT);
+
+  randomSeed(analogRead(0));
+}
+
+void loop() {
+
+  int val = analogRead(A1);
+  Serial.println(val);
+
+  digitalWrite(13, val < 300 ? HIGH : LOW);
+
+  // ===== モード切替（ヒステリシス）=====
+  if (val > 500) {
+    isRandomMode = true;   // 明るい → 暴れる
+  } else if (val < 500) {
+    if (isRandomMode) {
+      needReset = true;
+    }
+    isRandomMode = false;  // 暗い → 不安な規則動作
+  }
+
+  // ===== 明るさ変化時のリセット =====
+  if (needReset) {
+    moveToCenter();
+    needReset = false;
+    return;
+  }
+
+  // ===== 動作 =====
+  if (isRandomMode) {
+    randomMove();
+  } else {
+    regularMove(); // ← 不安で落ち着かない動き
+  }
+}
+
+// -------- 中央に戻す --------
+void moveToCenter() {
+  int move = -currentPos;
+  moveWithAccel(move, 2000, 4000);
+  currentPos = 0;
+}
+
+// -------- 不安な規則モード --------
+void regularMove() {
+  static int target = STEP_45;
+
+  // 端で反転
+  if (currentPos >= STEP_45) target = -STEP_45;
+  if (currentPos <= -STEP_45) target = STEP_45;
+
+  int move = target - currentPos;
+
+  // 基本はゆっくり
+  int minDelay = 2500;
+  int maxDelay = 5000;
+
+  // ★ たまに急に速くなる（不安）
+  if (random(0, 10) < 2) {
+    minDelay = 800;
+    maxDelay = 2000;
+  }
+
+  moveWithAccel(move, minDelay, maxDelay);
+
+  currentPos = target;
+
+  // ★ 小刻みな震え
+  if (random(0, 10) < 3) {
+    int shake = random(-3, 4);
+    moveWithAccel(shake, 2000, 4000);
+    currentPos += shake;
+  }
+
+  // ★ 落ち着かない間
+  delay(random(100, 400));
+}
+
+// -------- 暴れモード --------
+void randomMove() {
+  int move;
+
+  if (abs(currentPos) > STEP_45 * 0.8) {
+    move = (currentPos > 0) ? random(-STEP_45, -STEP_45/2)
+                            : random(STEP_45/2, STEP_45);
+  } else {
+    move = random(-STEP_45, STEP_45 + 1);
+  }
+
+  if (currentPos + move > STEP_45) move = STEP_45 - currentPos;
+  if (currentPos + move < -STEP_45) move = -STEP_45 - currentPos;
+
+  if (abs(move) < 5) move = (move >= 0) ? 5 : -5;
+
+  moveWithAccel(move, random(200,400), 1000);
+
+  currentPos += move;
+
+  delay(random(50,150));
+}
+
+// -------- 加速付き（暴れ中のみ中断）--------
+void moveWithAccel(int move, int minDelay, int maxDelay) {
+
+  digitalWrite(DIR, move > 0 ? HIGH : LOW);
+  int steps = abs(move);
+
+  for (int i = 0; i < steps; i++) {
+
+    int val = analogRead(A1);
+
+    // ★ 暴れ中だけ中断チェック
+    if (isRandomMode && val < 140) {
+      isRandomMode = false;
+      needReset = true;
+      return;
+    }
+
+    float t = (float)i / steps;
+    float curve = 1.0 - abs(2.0 * t - 1.0);
+    int d = maxDelay - (maxDelay - minDelay) * curve;
+
+    digitalWrite(STEP, HIGH);
+    delayMicroseconds(d);
+    digitalWrite(STEP, LOW);
+    delayMicroseconds(d);
+  }
+}
+</code></pre>
+      </section>
+      <section>
+        <h2>動画</h2>
+        <div class="video"><iframe width="560" height="315" src="https://www.youtube.com/embed/EQQ2VkZXxFs?si=VJzbGxpewthiT786&amp;start=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+      </section>
+
+      <section>
+        <h2>終わりに</h2>
+        <p>
+            アイデアはうまくいったと感じるが、人の関心を引きづらそうなテーマであったので、万人受けが期待できるものを作れるようにしたい。時間があれば立体的な軌道を出せるものにもチャレンジしてみたい。
+        </p>
+      </section>
+    </article>
+  </main>
+</body>
+</html>
+
