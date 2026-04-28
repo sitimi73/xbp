@@ -1,57 +1,260 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>jotaroのXBPポートフォリオ一覧</title>
-    <link rel="stylesheet" href="./css/door.css">
+<meta charset="UTF-8">
+<title>jotaroのXBPポートフォリオ一覧</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="ここにサイト説明を入れます">
+<link rel="stylesheet" href="./css/style.css">
 </head>
-<body>
-    <div id="door-container">
-        
-        <a href="./de12/index.html" class="door-link left-link">
-            <div class="door-half left-door">
-                <div class="door-detail"></div>
-                <div class="door-plaque left-plaque">
-                <span class="plaque-text">デザイン演習Ⅰ・Ⅱ</span></div>
-                <div class="door-knob left-knob"></div>
-            </div>
-        </a>
 
-        <a href="./digi_fab/index.html" class="door-link right-link">
-            <div class="door-half right-door">
-                <div class="door-detail"></div>
-                <div class="door-plaque right-plaque">
-                    <span class="plaque-text">デジタルファブリケーション</span>
-                </div>
-                <div class="door-knob right-knob"></div>
-            </div>
-        </a>
-    </div>
+<body class="home">
 
-    <div id="content">
-        <h1>Welcome</h1>
-        <p>いらっしゃいませ</p>
-    </div>
+<div id="container">
 
-    <script>
-        const doorLinks = document.querySelectorAll('.door-link');
-        const doorContainer = document.getElementById('door-container');
+<header class="site-header" id="header">
 
-        doorLinks.forEach(link => {
-            link.addEventListener('click', function(event) {
-                // リンクの即時遷移を一旦停止
-                event.preventDefault(); 
-                
-                // ドアを開くクラスを追加
-                doorContainer.classList.add('open');
+<h1 id="logo"><a href="./index.html"><img src="images/logo_white.png" alt="jotaroのXBPポートフォリオ一覧"></a></h1>
 
-                // アニメーションが終わってからページ遷移
-                setTimeout(() => {
-                    window.location.href = link.href;
-                }, 2500); // CSSのtransition時間 (2.5秒) に合わせる
-            });
-        });
-    </script>
+<!--ヘッダー内メニュー（開閉メニューはhtmlの下の方にあります）-->
+<div id="menubar2">
+<nav>
+<ul>
+<li><a href="./index.html">ホーム</a></li>
+<li><a href="">ドロップダウン</a>
+	<ul>
+	<li><a href="#">メニューメニューメニュー</a></li>
+	<li><a href="#">メニュー</a></li>
+	<li><a href="#">メニュー</a></li>
+	<li><a href="#">メニュー</a></li>
+	</ul>
+</li>
+<li><a href="page.html">ページ</a></li>
+<li><a href="page.html">ページ</a></li>
+</ul>
+</nav>
+</div>
+
+</header>
+
+<!--スライドショー-->
+<div class="mainimg">
+
+<div class="slide img1">
+<div class="text"><div class="text-bg">
+<h2>信頼できるサービス</h2>
+<p>お客様の課題に寄り添い、確かな実績でお応えします。</p>
+</div></div>
+<picture><source media="(max-width: 800px)" srcset="images/mainimg1.jpg"><img src="images/mainimg1.jpg" alt=""></picture>
+</div>
+
+<div class="slide img2">
+<div class="text left-parts"><div class="text-bg">
+<h2>暮らしに役立つご提案</h2>
+<p>豊かな暮らしを支える、きめ細やかなサポートを。</p>
+</div></div>
+<picture><source media="(max-width: 800px)" srcset="images/mainimg2.jpg"><img src="images/mainimg2.jpg" alt=""></picture>
+</div>
+
+<div class="slide img3">
+<div class="text right-parts"><div class="text-bg">
+<h2>安心をお届けします</h2>
+<p>長年培ったノウハウで、最適なソリューションを。</p>
+</div></div>
+<picture><source media="(max-width: 800px)" srcset="images/mainimg3.jpg"><img src="images/mainimg3.jpg" alt=""></picture>
+</div>
+
+<div class="slide-indicators"></div>
+</div>
+<!--/.mainimg-->
+
+<div id="contents">
+
+<main>
+<!-- ================================================
+     Builder で選択したパーツ（自動注入・2 件）
+     この <main> 内を編集／並び替え自由
+     ================================================ -->
+
+<!-- ▼ オーバーレイスライド（effects-overlay1） (effects-overlay1) -->
+<section>
+
+<h2 class="c">effects-overlay1-parts</h2>
+
+<div class="effects-overlay1-parts">
+
+<div class="list-parts image1-parts">
+<a href="./de12/index.html">
+<div class="text-parts">
+<h4>デザイン演習Ⅰ・Ⅱ<span>お問い合わせ</span></h4>
+<p>ここに説明を入れます。サンプルテキスト。ここに説明を入れます。サンプルテキスト。ここに説明を入れます。サンプルテキスト。ここに説明を入れます。サンプルテキスト。ここに説明を入れます。サンプルテキスト。ここに説明を入れます。サンプルテキスト。ここに説明を入れます。サンプルテキスト。ここに説明を入れます。サンプルテキスト。ここに説明を入れます。サンプルテキスト。</p>
+</div>
+</a>
+</div>
+
+<div class="list-parts image2-parts">
+<a href="./digi_fab/index.html">
+<div class="text-parts">
+<h4>デジタルファブリケーション<span>オンラインショップ</span></h4>
+<p>ここに説明を入れます。サンプルテキスト。</p>
+</div>
+</a>
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<p class="c">左右の余白をなくしたい場合は、<br>
+effects-overlay1-parts に<span class="color-check">bleed-x-parts</span>を追加して下さい。</p>
+
+<div class="effects-overlay1-parts bleed-x-parts">
+
+<div class="list-parts image1-parts">
+<a href="./de34/index.html">
+<div class="text-parts">
+<h4>デザイン演習Ⅲ・Ⅳ<span>お問い合わせ</span></h4>
+<p>ここに説明を入れます。サンプルテキスト。ここに説明を入れます。サンプルテキスト。ここに説明を入れます。サンプルテキスト。</p>
+</div>
+</a>
+</div>
+
+<div class="list-parts image2-parts">
+<a href="./de56/index.html">
+<div class="text-parts">
+<h4>デザイン演習Ⅴ・Ⅵ<span>オンラインショップ</span></h4>
+</div>
+</a>
+</div>
+
+</div>
+
+</section>
+<!-- ▲ effects-overlay1 -->
+
+
+<!-- ▼ 回転アニメーション（effects-spin1） (effects-spin1) -->
+<section style="margin-top: 80vh;">
+
+<h2>effects-spin1-parts</h2>
+<ul>
+<li><a href="https://template-party.com/parts/zip/demo-images-effects-spin1.zip">svg画像を先にDL</a>し、demo-images-effects-spin1フォルダごとフレームフォルダ直下（imagesフォルダと同じ階層）に入れて下さい。</li>
+<li>左上のspin（spin1-parts）は画面に比例してサイズが変動するタイプ。右下のspin（spin2-parts）は固定されたタイプ。サイズ変更はcssでできますので、お好みで使って下さい。</li>
+<li>英語テキストの内容は「毎日をもっと楽しく」といった汎用的なものです。aiファイルもありますので、必要があればテキストを変更したのちアウトライン化してsvg保存して下さい。</li>
+</ul>
+
+<!--左のスピン画像-->
+<img src="demo-images-effects-spin1/spin1.svg" alt="" class="animation-spin1-parts spin1-parts">
+
+<!--右のスピン画像-->
+<img src="demo-images-effects-spin1/spin1.svg" alt="" class="animation-spin1-parts spin2-parts">
+
+</section>
+<!-- ▲ effects-spin1 -->
+</main>
+
+</div>
+<!--/#contents-->
+
+<!-- ================================================
+     Builder で選択した footer パーツ（自動注入・1 件）
+     </div><!--/#contents--> の直下に配置
+     ================================================ -->
+
+<!-- ▼ フッターブロック（footer1） (footer1) -->
+<footer id="footer1-parts">
+
+<div>
+<p class="logo"><img src="images/logo_white.png" alt="SAMPLE COMPANY"></p>
+<p>東京都XXX区XXXXビル1F<br>
+03-0000-0000</p>
+<ul class="sns1-parts">
+<li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
+<li><a href="#"><i class="fab fa-line"></i></a></li>
+<li><a href="#"><i class="fab fa-youtube"></i></a></li>
+<li><a href="#"><i class="fab fa-instagram"></i></a></li>
+</ul>
+</div>
+
+<div>
+<div class="menu">
+<ul>
+<li><a href="#">ここにメニューを入れます</a></li>
+<li><a href="#">ここにメニューを入れます</a></li>
+<li><a href="#">ここにメニューを入れます</a></li>
+<li><a href="#">ここにメニューを入れます</a></li>
+<li><a href="#">ここにメニューを入れます</a></li>
+</ul>
+<ul>
+<li><a href="#">ここにメニューを入れます</a></li>
+<li><a href="#">ここにメニューを入れます</a></li>
+<li><a href="#">ここにメニューを入れます</a></li>
+<li><a href="#">ここにメニューを入れます</a></li>
+<li><a href="#">ここにメニューを入れます</a></li>
+</ul>
+<ul>
+<li><a href="#">ここにメニューを入れます</a></li>
+<li><a href="#">ここにメニューを入れます</a></li>
+<li><a href="#">ここにメニューを入れます</a></li>
+</ul>
+</div>
+<small>Copyright& あなたのサイト名 All Rights Reserved.</small>
+</div>
+
+</footer>
+<!-- ▲ footer1 -->
+
+
+<!--以下の行はテンプレートの著作。削除しないで下さい。-->
+<span class="pr"><a href="https://template-party.com/" target="_blank">《Web Design:Template-Party》</a></span>
+
+</div>
+<!--/#container-->
+
+<!--ページの上部へ戻るボタン-->
+<div class="pagetop"><a href="#"><i class="fas fa-angle-double-up"></i></a></div>
+
+<!--開閉ボタン（ハンバーガーアイコン）-->
+<div id="menubar_hdr">
+<span></span><span></span><span></span>
+</div>
+
+<!--開閉メニュー-->
+<div id="menubar">
+
+<p>※ここは、header内メニューとは別管理です。htmlの下の方に入っています。</p>
+
+<nav>
+<ul>
+<li><a href="./index.html">ホーム</a></li>
+<li><a href="">ドロップダウン</a>
+	<ul>
+	<li><a href="#">メニューメニューメニュー</a></li>
+	<li><a href="#">メニュー</a></li>
+	<li><a href="#">メニュー</a></li>
+	<li><a href="#">メニュー</a></li>
+	</ul>
+</li>
+<li><a href="page.html">ページ</a></li>
+<li><a href="page.html">ページ</a></li>
+</ul>
+</nav>
+
+</div>
+<!--/#menubar-->
+
+<!--jQueryの読み込み-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!--パララックス（inview）-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/protonet-jquery.inview/1.1.2/jquery.inview.min.js"></script>
+<script src="./jquery.inview_set.js"></script>
+
+<!--このテンプレート専用のスクリプト-->
+<script src="./main.js"></script>
+<script src="./parts.js"></script>
+
 </body>
 </html>

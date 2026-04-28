@@ -1,0 +1,174 @@
+@charset "utf-8";
+
+/* ================================================================
+   以下、Builder で選択したパーツのCSS（自動連結）
+   ================================================================ */
+
+/* ---- オーバーレイスライド（effects-overlay1） (effects-overlay1) ---- */
+/*effects-overlay1-parts
+---------------------------------------------------------------------------*/
+/*２つのボックスを囲むブロック*/
+.effects-overlay1-parts {
+	display: flex;
+}
+.effects-overlay1-parts a {
+	text-decoration: none;
+	display: block;
+}
+
+/*ボックス１個あたり*/
+.effects-overlay1-parts .list-parts {
+	flex: 1;
+	text-align: center;
+	position: relative;
+	overflow-y: hidden;
+}
+
+/*テキストブロック*/
+.effects-overlay1-parts .text-parts {
+	position: relative;z-index: 1;
+	color: #fff;
+	padding: 2rem;
+}
+
+/*h4見出し*/
+.effects-overlay1-parts .text-parts h4 {
+	font-family: var(--accent-font), var(--base-font);	/*theme.cssのaccent-fontに指定したフォントを読み込む。読み込めなければbase-fontで指定したフォントを読み込む。*/
+	font-size: min(56px, 5vw);	/*基本は5vwで、最大56pxまで*/
+	font-weight: normal;	/*デフォルトの太字を標準に*/
+	letter-spacing: 0.05em;	/*文字間隔を少しだけ広く*/
+}
+
+/*h4見出し内のspan（小さな文字）*/
+.effects-overlay1-parts .text-parts h4 span {
+	display: block;
+	font-size: 0.8rem;	/*文字サイズ80%*/
+}
+
+/*段落（p）*/
+.effects-overlay1-parts .text-parts p {
+	font-size: 0.85rem;	/*文字サイズ85%*/
+}
+
+/*1つ目（左）の背景画像*/
+.effects-overlay1-parts .image1-parts {
+	background: url("../images/square1.jpg") no-repeat center center / cover;
+}
+
+/*2つ目（右）の背景画像*/
+.effects-overlay1-parts .image2-parts {
+	background: url("../images/square2.jpg") no-repeat center center / cover;
+}
+
+/*マウスオン用のアニメーション*/
+.effects-overlay1-parts .list-parts::before {
+	content: "";position: absolute;inset: 0;
+	background: rgba(0,0,0,0.6);		/*写真に重ねておく半透明の黒い色。0,0,0は黒のことで0.6は色が60%出た状態。*/
+	transition: transform 0.3s 0.1s;	/*アニメーションの速度（0.3秒）と待機時間（0.1秒）。*/
+}
+.effects-overlay1-parts .list-parts:hover::before {
+	transform: translateY(100%);	/*マウスオンで半透明の黒を枠外へ出す。-100%にすると逆に移動します。*/
+}
+
+/* ---- フッターブロック（footer1） (footer1) ---- */
+/*フッター
+---------------------------------------------------------------------------*/
+#footer1-parts ul {list-style: none;}
+#footer1-parts p {margin: 0;}
+
+/*フッターボックス全体*/
+#footer1-parts {
+	font-size: 0.8rem;	/*文字サイズ80%*/
+    padding: var(--content-space-s);	/*ボックス内の余白。theme.cssのcontent-space-sを読み込みます。*/
+    background: var(--primary-color);	/*背景色。theme.cssのprimary-colorを読み込みます。*/
+    color: var(--primary-inverse-color);	/*文字色。theme.cssのprimary-inverse-colorを読み込みます。*/
+}
+
+/*ロゴの最大幅*/
+#footer1-parts .logo {
+	max-width: 400px;
+}
+
+/*フッター直下のdiv（２つのブロックそれぞれ）*/
+#footer1-parts > div {
+	display: flex;
+	flex-direction: column;	/*縦積み*/
+	gap: 1rem;	/*要素間に空けるスペース。１文字分。*/
+}
+
+/*2つ目（右側）ブロック*/
+#footer1-parts .menu {
+    display: flex;	/*フッターメニューを横並びに*/
+    gap: 2rem;		/*メニュー（ul）同士の間に空けるスペース。２文字分。*/
+    align-items: flex-start;
+}
+
+	/*画面幅900px以上の追加指定*/
+	@media (min-width: 900px){
+	
+	/*フッターボックス全体*/
+	#footer1-parts {
+		display: flex;	/*横並びにする*/
+		justify-content: space-between;
+		gap: 2rem;	/*左右のボックスの間に空けるスペース。２文字分。*/
+	}
+	
+	/*1つ目（左側）ブロック*/
+	#footer1-parts > div:nth-of-type(1) {
+		flex: 0 0 30%;	/*幅を30%。お好みで。*/
+	}
+
+	}/*追加指定ここまで*/
+
+/*Copyright部分*/
+#footer1-parts small {
+	display: block;
+	text-align: right;	/*右寄せ*/
+	margin-top: auto;	/*下に*/
+}
+
+
+/*SNSアイコン
+---------------------------------------------------------------------------*/
+.sns1-parts {
+	list-style: none;
+	margin: 0;padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;		/*アイコン同士のマージン的な要素。１文字分。*/
+}
+
+.sns1-parts i {
+	font-size: 30px;	/*アイコンサイズ*/
+}
+
+/* ---- 回転アニメーション（effects-spin1） (effects-spin1) ---- */
+/*回転する円形のテキストアニメーション
+---------------------------------------------------------------------------*/
+@keyframes spin1-parts {
+	0% {transform: rotate(0deg);}
+	100% {transform: rotate(360deg);}
+}
+
+/*共通*/
+.animation-spin1-parts {
+	pointer-events: none;
+	animation: spin1-parts 150s linear infinite;	/*150s（150秒）が１回転する速度です。お好みで変更して下さい。*/
+	opacity: 0.8;	/*透明度。色が80%だけ出た状態。全部色を出したいならこの１行を削除。*/
+}
+
+/*場所の指示（spin1）　画面幅に比例してサイズが変動*/
+.spin1-parts {
+	position: absolute;
+	width: 50vw;	/*画像の幅。画面の50%*/
+	left: -15vw;	/*右からの距離。画面の左から-15%*/
+	top: -15vw;		/*上からの距離。画面の上から-15%*/
+}
+
+/*場所の指示（spin2）　画面幅に影響されず常に同じサイズ*/
+.spin2-parts {
+	position: absolute;
+	width: 500px;	/*画像の幅*/
+	right: -100px;	/*右からの距離*/
+	top: 400px;		/*上からの距離*/
+}
