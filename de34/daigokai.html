@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>jotaroの第五回</title>
+  <link rel="stylesheet" href="./css/yahoo.css">
+</head>
+<body>
+  <main class="container">
+    <article>
+      <h1>データベース</h1>
+      <p class="meta">jotaro</p>
+
+      <section>
+        <h2>データベースとは</h2>
+        <p>
+         データベースとは、大量のデータを蓄積し、管理するための仕組みのことである。データの管理とアクセスを容易にすることを重視している。
+        
+        </p>
+      </section>
+
+      <section>
+        <h2>仕組み</h2>
+        <p>
+          データはテーブルという「表」で管理されており、IDで関係をつないでいる。その中の必要なデータをSQLという言語で指示して取り出す。
+        </p>
+      </section>
+
+      <section>
+        <h2>用語</h2>
+        <p>テーブル：データを表で管理する単位<br>
+           レコード：表の横一行<br>
+           カラム：表の縦列<br>
+           SQL:データベースを管
+           理するための言語<br>
+        </p>
+      </section>
+      
+      <section>
+        <h2>X（旧Twitter）のDBの仕組みについて考える。</h2>
+        <p>
+            Xで扱われているデータ(テーブル)は主に
+            ・ユーザー<br>
+            ・ツイート<br>
+            ・フォロー関係<br>
+            ・いいね<br>
+            ・リプライ<br>
+            ・DM<br>
+            ・画像、動画<br>
+            ・タイムライン<br>
+
+            である。
+        </p>
+
+        <img src="./images/スクリーンショット 2026-05-24 213310.png" style="width: auto"><br>
+
+        <p>
+            ユーザー情報をユーザーテーブルに保存、投稿をidで紐づけツイートテーブルに保存、フォロー関係をfollow、
+            followerテーブルに保存する。XではFan-out on Write方式を使い、投稿時にタイムラインテーブルに事前にツイートを追加しそれを配布する方式をとっている。        </p>
+      </section>
+
+      <section>
+        <h2>終わりに</h2>
+        <p>
+            Xのような多機能で複雑なものには相応の複雑なシステムと膨大なデータから成り立たせるための工夫がされており、理解のために今よりもっと学習を積まなければいけないと感じた。
+        </p>
+      </section>
+
+
+  </main>
+</body>
+</html>
