@@ -71,7 +71,7 @@ button:focus-visible {
   margin-inline: auto;
 }
 
-/* HEADER */
+
 
 .topline {
   height: 5px;
@@ -134,7 +134,7 @@ button:focus-visible {
   background: var(--blue);
 }
 
-/* HERO */
+
 
 .hero {
   min-height: 620px;
@@ -237,7 +237,7 @@ button:focus-visible {
   border-color: var(--blue);
 }
 
-/* INTERACTIVE PREVIEW */
+
 
 .deck-holder {
   position: relative;
@@ -378,7 +378,7 @@ button:focus-visible {
   transform: rotate(45deg);
 }
 
-/* SECTIONS */
+
 
 .section {
   padding: 112px 0;
@@ -420,7 +420,7 @@ button:focus-visible {
   font-weight: 700;
 }
 
-/* COURSE FILTERS */
+
 
 .course-toolbar {
   display: flex;
@@ -465,7 +465,7 @@ button:focus-visible {
   font-weight: 800;
 }
 
-/* COURSE CARDS */
+
 
 .course-grid {
   display: grid;
@@ -610,7 +610,7 @@ button:focus-visible {
   color: var(--blue);
 }
 
-/* APP DEVELOPMENT */
+
 
 .app-section {
   background: var(--white);
@@ -748,7 +748,7 @@ button:focus-visible {
   margin-top: 12px;
 }
 
-/* ABOUT */
+
 
 .about {
   display: grid;
@@ -771,7 +771,7 @@ button:focus-visible {
   line-height: 2.05;
 }
 
-/* FOOTER */
+
 
 .footer {
   border-top: 1px solid var(--line);
@@ -802,7 +802,7 @@ button:focus-visible {
   gap: 22px;
 }
 
-/* MODAL */
+
 
 .dialog {
   width: min(600px, calc(100% - 40px));
@@ -866,7 +866,7 @@ button:focus-visible {
   font-weight: 800;
 }
 
-/* RESPONSIVE */
+
 
 @media (max-width: 1060px) {
   .hero {
@@ -1125,7 +1125,8 @@ button:focus-visible {
     <nav class="nav" aria-label="メインメニュー">
       <a href="#courses">授業の記録</a>
       <a href="#apps">アプリ開発</a>
-      <a href="#about">プロフィール</a>
+      const posts = [
+	  <a href="./thoughts.html">つぶやき</a>
     </nav>
 
   </div>
@@ -1349,9 +1350,7 @@ button:focus-visible {
 
 <script>
 
-/* ========================
-   授業データ
-======================== */
+
 
 const courses = [
   {
@@ -1392,15 +1391,13 @@ const courses = [
   }
 ];
 
-/* ========================
-   アプリデータ
-======================== */
+
 
 const apps = [
   {
     title: "EasyVector",
     type: "WEB APPLICATION",
-    summary: "図形や文字を編集できるベクターデザインアプリ。（制作中）",
+    summary: "図形や文字を直観的に編集できるベクターデザインアプリ。（制作中）",
     details:
       "図形や文字の編集、スマートガイド、グループ編集などに取り組んでいます。",
     tech: ["React", "Vite", "UI設計"],
@@ -1412,9 +1409,7 @@ const apps = [
  
 ];
 
-/* ========================
-   共通
-======================== */
+
 
 function createElement(tag, className, text) {
   const element = document.createElement(tag);
@@ -1434,9 +1429,7 @@ function pad(number) {
   return String(number).padStart(2, "0");
 }
 
-/* ========================
-   講義プレビュー
-======================== */
+
 
 const deck = document.getElementById("deck");
 const deckCount = document.getElementById("deckCount");
@@ -1473,9 +1466,7 @@ document.getElementById("deckNext")
 
 showDeck(0);
 
-/* ========================
-   授業一覧
-======================== */
+
 
 const courseGrid = document.getElementById("courseGrid");
 const courseCount = document.getElementById("courseCount");
@@ -1592,9 +1583,7 @@ categories.forEach(category => {
 
 renderCourses();
 
-/* ========================
-   アプリ一覧
-======================== */
+
 
 const appList = document.getElementById("appList");
 const dialog = document.getElementById("appDialog");
@@ -1703,9 +1692,7 @@ apps.forEach((app, index) => {
   appList.appendChild(card);
 });
 
-/* ========================
-   スクロール
-======================== */
+
 
 document.getElementById("year").textContent =
   new Date().getFullYear();
