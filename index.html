@@ -1,261 +1,1740 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>jotaroのXBPポートフォリオ一覧</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="ここにサイト説明を入れます">
-<link rel="stylesheet" href="./css/style.css">
+<meta name="theme-color" content="#f5f4ed">
+<meta name="description" content="jotaroのポートフォリオ。大学での制作記録と個人開発アプリを紹介しています。">
+<title>jotaro — Portfolio</title>
+
+<style>
+:root {
+  --bg: #f5f4ed;
+  --white: #fffefb;
+  --ink: #18241c;
+  --sub: #59665d;
+  --line: #cbd0c5;
+  --blue: #315bea;
+  --lime: #d8f17f;
+  --orange: #fb8664;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family:
+    "Helvetica Neue",
+    Arial,
+    "Hiragino Kaku Gothic ProN",
+    "Yu Gothic",
+    Meiryo,
+    sans-serif;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 4px;
+}
+
+::selection {
+  background: var(--lime);
+}
+
+.container {
+  width: min(1320px, calc(100% - 84px));
+  margin-inline: auto;
+}
+
+/* HEADER */
+
+.topline {
+  height: 5px;
+  background: linear-gradient(
+    90deg,
+    var(--blue) 0 75%,
+    var(--orange) 75% 88%,
+    var(--lime) 88%
+  );
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #f5f4edf5;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 76px;
+  gap: 25px;
+}
+
+.brand {
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -.075em;
+}
+
+.brand span {
+  color: var(--blue);
+}
+
+.nav {
+  display: flex;
+  gap: 30px;
+}
+
+.nav a {
+  font-size: 13px;
+  font-weight: 700;
+  transition: color .2s;
+}
+
+.nav a:hover {
+  color: var(--blue);
+}
+
+.progress {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: var(--blue);
+}
+
+/* HERO */
+
+.hero {
+  min-height: 620px;
+  padding: 76px 0 100px;
+  display: grid;
+  grid-template-columns: 1.18fr .82fr;
+  gap: 6%;
+  align-items: center;
+}
+
+.hero-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  letter-spacing: .11em;
+  font-weight: 800;
+  color: var(--blue);
+}
+
+.hero-label::before {
+  content: "";
+  width: 32px;
+  height: 2px;
+  background: var(--blue);
+}
+
+.hero h1 {
+  margin: 24px 0 28px;
+  font-size: clamp(59px, 6.3vw, 106px);
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: -.095em;
+}
+
+.hero h1 span {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+  isolation: isolate;
+}
+
+.hero h1 span::after {
+  content: "";
+  position: absolute;
+  bottom: 5%;
+  left: 2%;
+  width: 96%;
+  height: 12px;
+  background: var(--lime);
+  z-index: -1;
+  transform: rotate(-2deg);
+}
+
+.hero-description {
+  max-width: 500px;
+  font-size: 17px;
+  line-height: 2;
+  color: var(--sub);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+  margin-top: 34px;
+}
+
+.primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 35px;
+  padding: 16px 22px;
+  color: white;
+  background: var(--ink);
+  border-radius: 40px;
+  font-size: 13px;
+  font-weight: 800;
+  transition:
+    transform .25s,
+    background .25s;
+}
+
+.primary-button:hover {
+  background: var(--blue);
+  transform: translateY(-3px);
+}
+
+.secondary-button {
+  padding: 12px 5px;
+  border-bottom: 1px solid var(--ink);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.secondary-button:hover {
+  color: var(--blue);
+  border-color: var(--blue);
+}
+
+/* INTERACTIVE PREVIEW */
+
+.deck-holder {
+  position: relative;
+  padding: 20px 15px 17px 18px;
+}
+
+.deck-holder::before {
+  content: "";
+  position: absolute;
+  inset: 35px 0 6px 34px;
+  border: 2px solid var(--ink);
+  border-radius: 7px;
+  transform: rotate(4.5deg);
+}
+
+.deck {
+  --deck-color: #d6e7ff;
+  --deck-ink: #234a93;
+
+  position: relative;
+  min-height: 446px;
+  display: flex;
+  flex-direction: column;
+  background: var(--deck-color);
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  transform: rotate(-2.5deg);
+  transition:
+    background .25s,
+    transform .3s;
+}
+
+.deck-holder:hover .deck {
+  transform: rotate(-1deg) translateY(-3px);
+}
+
+.deck-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 23px 24px;
+  border-bottom: 1px solid #18241c55;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.deck-main {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+  overflow: hidden;
+}
+
+.deck-main::before {
+  content: "";
+  position: absolute;
+  width: 73%;
+  aspect-ratio: 1;
+  border: 1px solid #18241c55;
+  border-radius: 50%;
+  transform: scale(1.25);
+}
+
+.deck-main::after {
+  content: "";
+  position: absolute;
+  top: 22%;
+  right: 14%;
+  width: 38px;
+  height: 38px;
+  background: var(--lime);
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+}
+
+.deck-glyph {
+  position: relative;
+  z-index: 1;
+  color: var(--deck-ink);
+  font-size: clamp(90px, 10vw, 158px);
+  font-weight: 900;
+  letter-spacing: -.08em;
+  line-height: 1;
+  white-space: nowrap;
+  transition: transform .25s;
+}
+
+.deck-holder:hover .deck-glyph {
+  transform: translateY(-6px);
+}
+
+.deck-label {
+  position: relative;
+  z-index: 1;
+  margin-top: 16px;
+  color: var(--deck-ink);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .13em;
+}
+
+.deck-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin: 0 24px 22px;
+  padding-top: 17px;
+  border-top: 1px solid #18241c55;
+}
+
+.deck-open {
+  font-size: 13px;
+  font-weight: 900;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 3px;
+}
+
+.deck-next {
+  width: 49px;
+  height: 49px;
+  flex-shrink: 0;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: white;
+  font-size: 23px;
+  transition:
+    transform .2s,
+    background .2s;
+}
+
+.deck-next:hover {
+  background: var(--lime);
+  transform: rotate(45deg);
+}
+
+/* SECTIONS */
+
+.section {
+  padding: 112px 0;
+}
+
+.section-top {
+  display: grid;
+  grid-template-columns: 130px 1fr auto;
+  gap: 26px;
+  align-items: end;
+  padding-top: 27px;
+  margin-bottom: 43px;
+  border-top: 2px solid var(--ink);
+}
+
+.section-number {
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--blue);
+  letter-spacing: .08em;
+}
+
+.section-top h2 {
+  margin: 0;
+  font-size: clamp(35px, 4.5vw, 61px);
+  font-weight: 900;
+  letter-spacing: -.075em;
+  line-height: 1.2;
+}
+
+.section-top h2 span {
+  color: var(--blue);
+}
+
+.section-description {
+  margin: 0;
+  color: var(--sub);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* COURSE FILTERS */
+
+.course-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 27px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter {
+  padding: 9px 19px;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  color: var(--sub);
+  font-size: 12px;
+  font-weight: 800;
+  transition: .2s;
+}
+
+.filter:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.filter[aria-pressed="true"] {
+  background: var(--ink);
+  color: white;
+  border-color: var(--ink);
+}
+
+.course-count {
+  color: var(--sub);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* COURSE CARDS */
+
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px;
+}
+
+.course-card {
+  display: block;
+  min-width: 0;
+}
+
+.course-poster {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1.54;
+  background: var(--cover);
+  color: var(--cover-ink);
+  border-radius: 7px;
+  border: 1px solid #19231c22;
+  isolation: isolate;
+  transition:
+    transform .3s,
+    box-shadow .3s;
+}
+
+.course-card:hover .course-poster {
+  transform: translateY(-5px);
+  box-shadow: 0 13px 0 #18241c16;
+}
+
+.poster-head {
+  position: absolute;
+  top: 21px;
+  left: 23px;
+  right: 23px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .09em;
+}
+
+.poster-ring {
+  position: absolute;
+  width: 60%;
+  aspect-ratio: 1;
+  left: 42%;
+  top: 6%;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  opacity: .38;
+  transition: transform .4s;
+}
+
+.poster-ring::after {
+  content: "";
+  position: absolute;
+  inset: 13%;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+.course-card:hover .poster-ring {
+  transform: rotate(24deg) scale(1.08);
+}
+
+.poster-glyph {
+  position: absolute;
+  left: 7%;
+  bottom: 10%;
+  font-size: clamp(70px, 10.7vw, 161px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -.12em;
+  white-space: nowrap;
+  transition: transform .35s;
+}
+
+.course-card:hover .poster-glyph {
+  transform: translateX(10px);
+}
+
+.poster-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.poster-arrow {
+  position: absolute;
+  right: 21px;
+  bottom: 17px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  background: var(--ink);
+  color: white;
+  border-radius: 50%;
+  font-size: 23px;
+  transition:
+    transform .25s,
+    background .25s;
+}
+
+.course-card:hover .poster-arrow {
+  transform: rotate(45deg);
+  background: var(--blue);
+}
+
+.course-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 1px 9px;
+}
+
+.course-details small {
+  color: var(--sub);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.course-details h3 {
+  margin: 4px 0 0;
+  font-size: clamp(19px, 2vw, 26px);
+  letter-spacing: -.05em;
+  line-height: 1.4;
+}
+
+.course-view {
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--blue);
+}
+
+/* APP DEVELOPMENT */
+
+.app-section {
+  background: var(--white);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.app-list {
+  display: grid;
+  gap: 26px;
+}
+
+.app-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 335px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.app-art {
+  position: relative;
+  min-height: 315px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--art);
+}
+
+.app-art::before {
+  content: "";
+  position: absolute;
+  inset: 15px;
+  border: 1px solid #17241b2b;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.app-tag {
+  position: absolute;
+  top: 27px;
+  left: 29px;
+  z-index: 2;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+
+.app-art img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.app-symbol {
+  font-size: clamp(85px, 12vw, 170px);
+  font-weight: 900;
+  letter-spacing: -.1em;
+  color: var(--ink);
+  transition: transform .35s;
+}
+
+.app-card:hover .app-symbol {
+  transform: translateY(-7px) rotate(-3deg);
+}
+
+.app-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 38px clamp(26px, 4vw, 60px);
+}
+
+.app-type {
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .11em;
+}
+
+.app-copy h3 {
+  margin: 12px 0 18px;
+  font-size: clamp(29px, 3vw, 45px);
+  letter-spacing: -.065em;
+  line-height: 1.25;
+}
+
+.app-copy p {
+  max-width: 385px;
+  margin: 0 0 20px;
+  color: var(--sub);
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.app-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 21px;
+}
+
+.app-tech span {
+  padding: 4px 11px;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.app-more,
+.app-link {
+  display: inline-block;
+  padding: 6px 0;
+  border: 0;
+  border-bottom: 2px solid var(--blue);
+  background: transparent;
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.app-more:hover,
+.app-link:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+.app-link {
+  margin-top: 12px;
+}
+
+/* ABOUT */
+
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 9%;
+  padding: 104px 0 114px;
+  border-top: 2px solid var(--ink);
+}
+
+.about h2 {
+  margin: 13px 0 0;
+  font-size: clamp(36px, 4vw, 56px);
+  letter-spacing: -.07em;
+}
+
+.about p {
+  margin: 10px 0 0;
+  color: var(--sub);
+  font-size: 17px;
+  line-height: 2.05;
+}
+
+/* FOOTER */
+
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 28px 0 37px;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer small,
+.footer a {
+  color: var(--sub);
+  font-size: 12px;
+}
+
+.footer a:hover {
+  color: var(--blue);
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+}
+
+/* MODAL */
+
+.dialog {
+  width: min(600px, calc(100% - 40px));
+  max-height: 85dvh;
+  padding: 36px;
+  background: var(--white);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 10px;
+  box-shadow: 16px 16px 0 #18241c35;
+}
+
+.dialog::backdrop {
+  background: #14241ac4;
+  backdrop-filter: blur(3px);
+}
+
+.dialog-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.dialog h2 {
+  margin: 10px 0 24px;
+  font-size: 35px;
+  letter-spacing: -.07em;
+}
+
+.dialog p {
+  margin: 0 0 18px;
+  color: var(--sub);
+  line-height: 1.95;
+}
+
+.dialog-type {
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.dialog-close {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  font-size: 22px;
+}
+
+.dialog-close:hover {
+  background: var(--lime);
+}
+
+.dialog-tech {
+  padding-top: 17px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1060px) {
+  .hero {
+    grid-template-columns: 1fr 380px;
+    gap: 25px;
+  }
+
+  .hero h1 {
+    font-size: clamp(55px, 6vw, 82px);
+  }
+
+  .section-top {
+    grid-template-columns: 75px 1fr;
+  }
+
+  .section-description {
+    grid-column: 2;
+  }
+}
+
+@media (max-width: 800px) {
+  .container {
+    width: calc(100% - 48px);
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 53px;
+    min-height: 0;
+    padding: 63px 0 84px;
+  }
+
+  .hero h1 {
+    font-size: clamp(61px, 11vw, 90px);
+  }
+
+  .deck-holder {
+    width: min(100%, 490px);
+    margin: 0 auto;
+  }
+
+  .deck {
+    min-height: 380px;
+  }
+
+  .deck-glyph {
+    font-size: 150px;
+  }
+
+  .section {
+    padding: 81px 0;
+  }
+
+  .course-grid {
+    gap: 20px;
+  }
+
+  .app-card {
+    grid-template-columns: 1fr;
+  }
+
+  .app-art {
+    min-height: 320px;
+  }
+
+  .app-copy {
+    padding: 31px;
+  }
+}
+
+@media (max-width: 570px) {
+  .container {
+    width: calc(100% - 36px);
+  }
+
+  .header-inner {
+    min-height: 64px;
+  }
+
+  .brand {
+    font-size: 24px;
+  }
+
+  .nav {
+    gap: 14px;
+  }
+
+  .nav a {
+    font-size: 11px;
+  }
+
+  .hero {
+    padding: 52px 0 58px;
+    gap: 30px;
+  }
+
+  .hero h1 {
+    font-size: clamp(48px, 11.6vw, 68px);
+    margin: 19px 0 20px;
+  }
+
+  .hero-description {
+    font-size: 14px;
+  }
+
+  .hero-actions {
+    gap: 12px;
+  }
+
+  .primary-button {
+    padding: 13px 16px;
+    font-size: 12px;
+    gap: 17px;
+  }
+
+  .secondary-button {
+    font-size: 12px;
+  }
+
+  .deck-holder {
+    padding: 12px;
+  }
+
+  .deck {
+    min-height: 320px;
+  }
+
+  .deck-top {
+    padding: 17px;
+    font-size: 10px;
+  }
+
+  .deck-main {
+    min-height: 180px;
+  }
+
+  .deck-glyph {
+    font-size: 110px;
+  }
+
+  .deck-foot {
+    margin: 0 18px 15px;
+  }
+
+  .deck-next {
+    width: 42px;
+    height: 42px;
+  }
+
+  .section {
+    padding: 66px 0;
+  }
+
+  .section-top {
+    grid-template-columns: 43px 1fr;
+    gap: 13px;
+    margin-bottom: 27px;
+    padding-top: 20px;
+  }
+
+  .section-top h2 {
+    font-size: 37px;
+  }
+
+  .section-number {
+    font-size: 11px;
+  }
+
+  .section-description {
+    font-size: 12px;
+  }
+
+  .filter {
+    padding: 7px 12px;
+    font-size: 11px;
+  }
+
+  .course-grid {
+    grid-template-columns: 1fr;
+    gap: 21px;
+  }
+
+  .course-poster {
+    aspect-ratio: 1.52;
+  }
+
+  .poster-glyph {
+    font-size: clamp(94px, 23vw, 135px);
+  }
+
+  .course-details h3 {
+    font-size: 20px;
+  }
+
+  .app-art {
+    min-height: 235px;
+  }
+
+  .app-copy {
+    padding: 23px 22px 28px;
+  }
+
+  .app-copy h3 {
+    font-size: 30px;
+  }
+
+  .app-copy p {
+    font-size: 13px;
+  }
+
+  .about {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 67px 0;
+  }
+
+  .about h2 {
+    font-size: 39px;
+  }
+
+  .about p {
+    font-size: 14px;
+  }
+
+  .dialog {
+    padding: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+</style>
 </head>
 
-<body class="home">
+<body>
 
-<div id="container">
+<div class="topline"></div>
 
-<header class="site-header" id="header">
+<header class="header">
+  <div class="container header-inner">
 
-<h1 id="logo"><a href="./index.html"><img src="images/logo_white.png" alt="jotaroのXBPポートフォリオ一覧"></a></h1>
+    <a class="brand" href="#top">
+      jotaro<span>.</span>
+    </a>
 
-<!--ヘッダー内メニュー（開閉メニューはhtmlの下の方にあります）-->
-<div id="menubar2">
-<nav>
-<ul>
-<li><a href="./index.html">ホーム</a></li>
-<li><a href="">ドロップダウン</a>
-	<ul>
-	<li><a href="#">メニューメニューメニュー</a></li>
-	<li><a href="#">メニュー</a></li>
-	<li><a href="#">メニュー</a></li>
-	<li><a href="#">メニュー</a></li>
-	</ul>
-</li>
-<li><a href="page.html">ページ</a></li>
-<li><a href="page.html">ページ</a></li>
-</ul>
-</nav>
-</div>
+    <nav class="nav" aria-label="メインメニュー">
+      <a href="#courses">授業の記録</a>
+      <a href="#apps">アプリ開発</a>
+      <a href="#about">プロフィール</a>
+    </nav>
 
+  </div>
+
+  <div class="progress" id="progress"></div>
 </header>
 
-<!--スライドショー-->
-<div class="mainimg">
-
-<div class="slide img1">
-<div class="text"><div class="text-bg">
-<h2>信頼できるサービス</h2>
-<p>お客様の課題に寄り添い、確かな実績でお応えします。</p>
-</div></div>
-<picture><source media="(max-width: 800px)" srcset="images/mainimg1.jpg"><img src="images/mainimg1.jpg" alt=""></picture>
-</div>
-
-<div class="slide img2">
-<div class="text left-parts"><div class="text-bg">
-<h2>暮らしに役立つご提案</h2>
-<p>豊かな暮らしを支える、きめ細やかなサポートを。</p>
-</div></div>
-<picture><source media="(max-width: 800px)" srcset="images/mainimg2.jpg"><img src="images/mainimg2.jpg" alt=""></picture>
-</div>
-
-<div class="slide img3">
-<div class="text right-parts"><div class="text-bg">
-<h2>安心をお届けします</h2>
-<p>長年培ったノウハウで、最適なソリューションを。</p>
-</div></div>
-<picture><source media="(max-width: 800px)" srcset="images/mainimg3.jpg"><img src="images/mainimg3.jpg" alt=""></picture>
-</div>
-
-<div class="slide-indicators"></div>
-</div>
-<!--/.mainimg-->
-
-<div id="contents">
-
 <main>
-<!-- ================================================
-     Builder で選択したパーツ（自動注入・2 件）
-     この <main> 内を編集／並び替え自由
-     ================================================ -->
 
-<!-- ▼ オーバーレイスライド（effects-overlay1） (effects-overlay1) -->
-<section>
+<!-- HERO -->
 
-<h2 class="c">effects-overlay1-parts</h2>
+<section class="hero container" id="top">
 
-<div class="effects-overlay1-parts">
+  <div class="hero-copy">
 
-<div class="list-parts image1-parts">
-<a href="./de12/index.html">
-<div class="text-parts">
-<h4>デザイン演習Ⅰ・Ⅱ<span>お問い合わせ</span></h4>
-<p>ここに説明を入れます。サンプルテキスト。ここに説明を入れます。サンプルテキスト。ここに説明を入れます。サンプルテキスト。ここに説明を入れます。サンプルテキスト。ここに説明を入れます。サンプルテキスト。ここに説明を入れます。サンプルテキスト。ここに説明を入れます。サンプルテキスト。ここに説明を入れます。サンプルテキスト。ここに説明を入れます。サンプルテキスト。</p>
-</div>
-</a>
-</div>
+    <div class="hero-label">
+      JOTARO'S PORTFOLIO
+    </div>
 
-<div class="list-parts image2-parts">
-<a href="./digi_fab/index.html">
-<div class="text-parts">
-<h4>デジタルファブリケーション<span>オンラインショップ</span></h4>
-<p>ここに説明を入れます。サンプルテキスト。</p>
-</div>
-</a>
-</div>
+    <h1>
+      jotaroの<br>
+      <span>ポートフォリオ</span>
+    </h1>
 
-</div>
+    <p class="hero-description">
+      大学の授業で取り組んだ制作と、
+      個人で開発しているアプリを紹介しています。
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="primary-button" href="#courses">
+        制作記録を見る
+        <span>↗</span>
+      </a>
+
+      <a class="secondary-button" href="#apps">
+        アプリ開発を見る ↗
+      </a>
+
+    </div>
+
+  </div>
+
+  <!-- 切り替えられる講義カード -->
+
+  <div class="deck-holder">
+
+    <div class="deck" id="deck">
+
+      <div class="deck-top">
+        <span>COURSE / PREVIEW</span>
+        <span id="deckCount">01 / 04</span>
+      </div>
+
+      <div class="deck-main">
+        <span class="deck-glyph" id="deckGlyph">
+          Ⅰ・Ⅱ
+        </span>
+
+        <span class="deck-label" id="deckLabel">
+          デザイン演習
+        </span>
+      </div>
+
+      <div class="deck-foot">
+
+        <a class="deck-open"
+           id="deckOpen"
+           href="./de12/index.html">
+          デザイン演習Ⅰ・Ⅱ ↗
+        </a>
+
+        <button class="deck-next"
+                id="deckNext"
+                type="button"
+                aria-label="次の講義を見る">
+          →
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- 授業の記録 -->
+
+<section class="section container"
+         id="courses">
+
+  <div class="section-top">
+
+    <span class="section-number">
+      01 / WORKS
+    </span>
+
+    <h2>
+      授業の記録<span>.</span>
+    </h2>
+
+    <p class="section-description">
+      講義ごとの制作と取り組み
+    </p>
+
+  </div>
+
+  <div class="course-toolbar">
+
+    <div class="filters" id="filters"></div>
+
+    <span class="course-count" id="courseCount">
+    </span>
+
+  </div>
+
+  <div class="course-grid" id="courseGrid"></div>
 
 </section>
 
-<section>
+<!-- アプリ開発 -->
 
-<p class="c">左右の余白をなくしたい場合は、<br>
-effects-overlay1-parts に<span class="color-check">bleed-x-parts</span>を追加して下さい。</p>
+<section class="section app-section" id="apps">
 
-<div class="effects-overlay1-parts bleed-x-parts">
+  <div class="container">
 
-<div class="list-parts image1-parts">
-<a href="./de34/index.html">
-<div class="text-parts">
-<h4>デザイン演習Ⅲ・Ⅳ<span>お問い合わせ</span></h4>
-<p>ここに説明を入れます。サンプルテキスト。ここに説明を入れます。サンプルテキスト。ここに説明を入れます。サンプルテキスト。</p>
-</div>
-</a>
-</div>
+    <div class="section-top">
 
-<div class="list-parts image2-parts">
-<a href="./de56/index.html">
-<div class="text-parts">
-<h4>デザイン演習Ⅴ・Ⅵ<span>オンラインショップ</span></h4>
-</div>
-</a>
-</div>
+      <span class="section-number">
+        02 / APPS
+      </span>
 
-</div>
+      <h2>
+        アプリ開発<span>.</span>
+      </h2>
 
-</section>
-<!-- ▲ effects-overlay1 -->
+      <p class="section-description">
+        個人制作のソフトウェア
+      </p>
 
+    </div>
 
-<!-- ▼ 回転アニメーション（effects-spin1） (effects-spin1) -->
-<section style="margin-top: 80vh;">
+    <div class="app-list" id="appList"></div>
 
-<h2>effects-spin1-parts</h2>
-<ul>
-<li><a href="https://template-party.com/parts/zip/demo-images-effects-spin1.zip">svg画像を先にDL</a>し、demo-images-effects-spin1フォルダごとフレームフォルダ直下（imagesフォルダと同じ階層）に入れて下さい。</li>
-<li>左上のspin（spin1-parts）は画面に比例してサイズが変動するタイプ。右下のspin（spin2-parts）は固定されたタイプ。サイズ変更はcssでできますので、お好みで使って下さい。</li>
-<li>英語テキストの内容は「毎日をもっと楽しく」といった汎用的なものです。aiファイルもありますので、必要があればテキストを変更したのちアウトライン化してsvg保存して下さい。</li>
-</ul>
-
-<!--左のスピン画像-->
-<img src="demo-images-effects-spin1/spin1.svg" alt="" class="animation-spin1-parts spin1-parts">
-
-<!--右のスピン画像-->
-<img src="demo-images-effects-spin1/spin1.svg" alt="" class="animation-spin1-parts spin2-parts">
+  </div>
 
 </section>
-<!-- ▲ effects-spin1 -->
+
+<!-- プロフィール -->
+
+<section class="about container" id="about">
+
+  <div>
+
+    <span class="section-number">
+      03 / ABOUT
+    </span>
+
+    <h2>プロフィール</h2>
+
+  </div>
+
+  <p>
+    jotaro<br>
+    水野丈太郎です。大学でデザインやものづくりを学びながら、
+    個人でもアプリやゲームを制作しています。
+    
+  </p>
+
+</section>
+
 </main>
 
-</div>
-<!--/#contents-->
+<footer class="footer">
 
-<!-- ================================================
-     Builder で選択した footer パーツ（自動注入・1 件）
-     </div><!--/#contents--> の直下に配置
-     ================================================ -->
+  <div class="container footer-inner">
 
-<!-- ▼ フッターブロック（footer1） (footer1) -->
-<footer id="footer1-parts">
+    <small>
+      © <span id="year"></span> jotaro
+    </small>
 
-<div>
-<p class="logo"><img src="images/logo_white.png" alt="SAMPLE COMPANY"></p>
-<p>東京都XXX区XXXXビル1F<br>
-03-0000-0000</p>
-<ul class="sns1-parts">
-<li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
-<li><a href="#"><i class="fab fa-line"></i></a></li>
-<li><a href="#"><i class="fab fa-youtube"></i></a></li>
-<li><a href="#"><i class="fab fa-instagram"></i></a></li>
-</ul>
-</div>
+    <nav class="footer-links">
+      <a href="#courses">授業の記録</a>
+      <a href="#apps">アプリ開発</a>
+      <a href="#top">ページ上部へ ↑</a>
+    </nav>
 
-<div>
-<div class="menu">
-<ul>
-<li><a href="#">ここにメニューを入れます</a></li>
-<li><a href="#">ここにメニューを入れます</a></li>
-<li><a href="#">ここにメニューを入れます</a></li>
-<li><a href="#">ここにメニューを入れます</a></li>
-<li><a href="#">ここにメニューを入れます</a></li>
-</ul>
-<ul>
-<li><a href="#">ここにメニューを入れます</a></li>
-<li><a href="#">ここにメニューを入れます</a></li>
-<li><a href="#">ここにメニューを入れます</a></li>
-<li><a href="#">ここにメニューを入れます</a></li>
-<li><a href="#">ここにメニューを入れます</a></li>
-</ul>
-<ul>
-<li><a href="#">ここにメニューを入れます</a></li>
-<li><a href="#">ここにメニューを入れます</a></li>
-<li><a href="#">ここにメニューを入れます</a></li>
-</ul>
-</div>
-<small>Copyright& あなたのサイト名 All Rights Reserved.</small>
-</div>
+  </div>
 
 </footer>
-<!-- ▲ footer1 -->
 
+<!-- アプリ詳細画面 -->
 
-<!--以下の行はテンプレートの著作。削除しないで下さい。-->
-<span class="pr"><a href="https://template-party.com/" target="_blank">《Web Design:Template-Party》</a></span>
+<dialog class="dialog"
+        id="appDialog"
+        aria-labelledby="dialogTitle">
 
-</div>
-<!--/#container-->
+  <div class="dialog-head">
 
-<!--ページの上部へ戻るボタン-->
-<div class="pagetop"><a href="#"><i class="fas fa-angle-double-up"></i></a></div>
+    <div>
+      <span class="dialog-type" id="dialogType"></span>
+      <h2 id="dialogTitle"></h2>
+    </div>
 
-<!--開閉ボタン（ハンバーガーアイコン）-->
-<div id="menubar_hdr">
-<span></span><span></span><span></span>
-</div>
+    <button class="dialog-close"
+            id="dialogClose"
+            type="button"
+            aria-label="閉じる">
+      ×
+    </button>
 
-<!--開閉メニュー-->
-<div id="menubar">
+  </div>
 
-<p>※ここは、header内メニューとは別管理です。htmlの下の方に入っています。</p>
+  <p id="dialogBody"></p>
 
-<nav>
-<ul>
-<li><a href="./index.html">ホーム</a></li>
-<li><a href="">ドロップダウン</a>
-	<ul>
-	<li><a href="#">メニューメニューメニュー</a></li>
-	<li><a href="#">メニュー</a></li>
-	<li><a href="#">メニュー</a></li>
-	<li><a href="#">メニュー</a></li>
-	</ul>
-</li>
-<li><a href="page.html">ページ</a></li>
-<li><a href="page.html">ページ</a></li>
-</ul>
-</nav>
+  <div class="dialog-tech" id="dialogTech"></div>
 
-</div>
-<!--/#menubar-->
+</dialog>
 
-<!--jQueryの読み込み-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
 
-<!--パララックス（inview）-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/protonet-jquery.inview/1.1.2/jquery.inview.min.js"></script>
-<script src="./jquery.inview_set.js"></script>
+/* ========================
+   授業データ
+======================== */
 
-<!--このテンプレート専用のスクリプト-->
-<script src="./main.js"></script>
-<script src="./parts.js"></script>
+const courses = [
+  {
+    title: "デザイン演習Ⅰ・Ⅱ",
+    category: "X-BUSINESS PROGRAM",
+    label: "Ⅰ・Ⅱ",
+    link: "./de12/index.html",
+    color: "#d6e7ff",
+    ink: "#234a93",
+    image: ""
+  },
+  {
+    title: "デザイン演習Ⅲ・Ⅳ",
+    category: "X-BUSINESS PROGRAM",
+    label: "Ⅲ・Ⅳ",
+    link: "./de34/index.html",
+    color: "#f9d7c5",
+    ink: "#a0412f",
+    image: ""
+  },
+  {
+    title: "デザイン演習Ⅴ・Ⅵ",
+    category: "X-BUSINESS PROGRAM",
+    label: "Ⅴ・Ⅵ",
+    link: "./de56/index.html",
+    color: "#d8e9b6",
+    ink: "#31533c",
+    image: ""
+  },
+  {
+    title: "デジタルファブリケーション",
+    category: "X-BUSINESS PROGRAM",
+    label: "FAB",
+    link: "./digi_fab/index.html",
+    color: "#dfd5f4",
+    ink: "#5a4183",
+    image: ""
+  }
+];
+
+/* ========================
+   アプリデータ
+======================== */
+
+const apps = [
+  {
+    title: "EasyVector",
+    type: "WEB APPLICATION",
+    summary: "図形や文字を編集できるベクターデザインアプリ。（制作中）",
+    details:
+      "図形や文字の編集、スマートガイド、グループ編集などに取り組んでいます。",
+    tech: ["React", "Vite", "UI設計"],
+    art: "#c8d8ff",
+    symbol: "EV",
+    image: "",
+    link: ""
+  },
+ 
+];
+
+/* ========================
+   共通
+======================== */
+
+function createElement(tag, className, text) {
+  const element = document.createElement(tag);
+
+  if (className) {
+    element.className = className;
+  }
+
+  if (text !== undefined) {
+    element.textContent = text;
+  }
+
+  return element;
+}
+
+function pad(number) {
+  return String(number).padStart(2, "0");
+}
+
+/* ========================
+   講義プレビュー
+======================== */
+
+const deck = document.getElementById("deck");
+const deckCount = document.getElementById("deckCount");
+const deckGlyph = document.getElementById("deckGlyph");
+const deckLabel = document.getElementById("deckLabel");
+const deckOpen = document.getElementById("deckOpen");
+
+let deckIndex = 0;
+
+function showDeck(index) {
+  if (!courses.length) return;
+
+  deckIndex = (index + courses.length) % courses.length;
+
+  const course = courses[deckIndex];
+
+  deck.style.setProperty("--deck-color", course.color);
+  deck.style.setProperty("--deck-ink", course.ink);
+
+  deckCount.textContent =
+    `${pad(deckIndex + 1)} / ${pad(courses.length)}`;
+
+  deckGlyph.textContent = course.label;
+  deckLabel.textContent = course.category;
+
+  deckOpen.textContent = course.title + " ↗";
+  deckOpen.href = course.link;
+}
+
+document.getElementById("deckNext")
+  .addEventListener("click", () => {
+    showDeck(deckIndex + 1);
+  });
+
+showDeck(0);
+
+/* ========================
+   授業一覧
+======================== */
+
+const courseGrid = document.getElementById("courseGrid");
+const courseCount = document.getElementById("courseCount");
+const filters = document.getElementById("filters");
+
+const categories = [
+  "すべて",
+  ...new Set(courses.map(course => course.category))
+];
+
+let activeCategory = "すべて";
+
+function createCourseCard(course, index) {
+  const link = createElement("a", "course-card");
+  link.href = course.link;
+
+  const poster = createElement("div", "course-poster");
+
+  poster.style.setProperty("--cover", course.color);
+  poster.style.setProperty("--cover-ink", course.ink);
+
+  const head = createElement("div", "poster-head");
+
+  head.append(
+    createElement("span", "", `JOTARO / ${pad(index + 1)}`),
+    createElement("span", "", course.category)
+  );
+
+  poster.append(
+    head,
+    createElement("div", "poster-ring"),
+    createElement("span", "poster-glyph", course.label)
+  );
+
+  if (course.image) {
+    const image = createElement("img", "poster-image");
+
+    image.src = course.image;
+    image.alt = course.title + "の制作物";
+    image.loading = "lazy";
+
+    poster.appendChild(image);
+  }
+
+  poster.appendChild(
+    createElement("span", "poster-arrow", "↗")
+  );
+
+  const details = createElement("div", "course-details");
+  const names = createElement("div");
+
+  names.append(
+    createElement("small", "", course.category),
+    createElement("h3", "", course.title)
+  );
+
+  details.append(
+    names,
+    createElement("span", "course-view", "見る ↗")
+  );
+
+  link.append(poster, details);
+
+  return link;
+}
+
+function renderCourses() {
+  courseGrid.replaceChildren();
+
+  let visibleCount = 0;
+
+  courses.forEach((course, index) => {
+    if (
+      activeCategory !== "すべて" &&
+      course.category !== activeCategory
+    ) {
+      return;
+    }
+
+    courseGrid.appendChild(
+      createCourseCard(course, index)
+    );
+
+    visibleCount++;
+  });
+
+  courseCount.textContent =
+    `${pad(visibleCount)} / ${pad(courses.length)}`;
+
+  filters.querySelectorAll("button").forEach(button => {
+    button.setAttribute(
+      "aria-pressed",
+      String(button.textContent === activeCategory)
+    );
+  });
+}
+
+categories.forEach(category => {
+  const button = createElement(
+    "button",
+    "filter",
+    category
+  );
+
+  button.type = "button";
+
+  button.addEventListener("click", () => {
+    activeCategory = category;
+    renderCourses();
+  });
+
+  filters.appendChild(button);
+});
+
+renderCourses();
+
+/* ========================
+   アプリ一覧
+======================== */
+
+const appList = document.getElementById("appList");
+const dialog = document.getElementById("appDialog");
+
+function openAppDetails(app) {
+  document.getElementById("dialogType").textContent =
+    app.type;
+
+  document.getElementById("dialogTitle").textContent =
+    app.title;
+
+  document.getElementById("dialogBody").textContent =
+    app.details;
+
+  document.getElementById("dialogTech").textContent =
+    app.tech.join(" / ");
+
+  dialog.showModal();
+}
+
+document.getElementById("dialogClose")
+  .addEventListener("click", () => {
+    dialog.close();
+  });
+
+dialog.addEventListener("click", event => {
+  if (event.target === dialog) {
+    dialog.close();
+  }
+});
+
+apps.forEach((app, index) => {
+  const card = createElement("article", "app-card");
+
+  const art = createElement("div", "app-art");
+  art.style.setProperty("--art", app.art);
+
+  art.appendChild(
+    createElement(
+      "span",
+      "app-tag",
+      `APP / ${pad(index + 1)}`
+    )
+  );
+
+  if (app.image) {
+    const image = createElement("img");
+
+    image.src = app.image;
+    image.alt = app.title + "の画面";
+    image.loading = "lazy";
+
+    art.appendChild(image);
+  } else {
+    art.appendChild(
+      createElement("span", "app-symbol", app.symbol)
+    );
+  }
+
+  const copy = createElement("div", "app-copy");
+
+  copy.append(
+    createElement("span", "app-type", app.type),
+    createElement("h3", "", app.title),
+    createElement("p", "", app.summary)
+  );
+
+  const tech = createElement("div", "app-tech");
+
+  app.tech.forEach(item => {
+    tech.appendChild(
+      createElement("span", "", item)
+    );
+  });
+
+  copy.appendChild(tech);
+
+  const more = createElement(
+    "button",
+    "app-more",
+    "概要を見る ↗"
+  );
+
+  more.type = "button";
+
+  more.addEventListener("click", () => {
+    openAppDetails(app);
+  });
+
+  copy.appendChild(more);
+
+  if (app.link) {
+    const link = createElement(
+      "a",
+      "app-link",
+      "公開ページへ ↗"
+    );
+
+    link.href = app.link;
+
+    copy.appendChild(link);
+  }
+
+  card.append(art, copy);
+
+  appList.appendChild(card);
+});
+
+/* ========================
+   スクロール
+======================== */
+
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+
+const progress = document.getElementById("progress");
+
+function updateProgress() {
+  const max =
+    document.documentElement.scrollHeight -
+    window.innerHeight;
+
+  const percent = max > 0
+    ? (window.scrollY / max) * 100
+    : 0;
+
+  progress.style.width = percent + "%";
+}
+
+window.addEventListener(
+  "scroll",
+  updateProgress,
+  { passive: true }
+);
+
+window.addEventListener("resize", updateProgress);
+
+updateProgress();
+
+</script>
 
 </body>
 </html>
-<!--test-->
